@@ -8,16 +8,3 @@ commands =
   nosetests
 deps =
   -rrequirements.txt
-
-
-
-
-############################## EXPLANATION ################################
-
-This is developing the Tox enviroment. You should copy this file the way it is and
-title it: tox.ini 
-
-You should copy the lines of a code above. 
-
-
-
