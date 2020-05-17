@@ -1,7 +1,7 @@
 from openmdao.api import ExplicitComponent
 
 
-class GrossWeightComp(ExplicitComponent):
+class EmptyWeightComp(ExplicitComponent):
     def initialize(self):
         self.options.declare('rho', types=float)
 
@@ -18,14 +18,13 @@ class GrossWeightComp(ExplicitComponent):
         self.add_input('w_design')
         self.add_input('w_else')
         self.add_input('v_inf')
-        self.add_input('w_pax')
-        self.add_output('w_wing')
-        self.add_output('w_tail')
-        self.add_output('GrossWeight')
+        self.add_input('w_wing')
+        self.add_input('w_tail')
+        self.add_output('EmptyWeight')
 
-        self.declare_partials('GrossWeight', 'wing_AR')
-        self.declare_partials('GrossWeight', 'tail_AR')
-        self.declare_partials('GrossWeight', 'v_inf')
+        self.declare_partials('EmptyWeight', 'wing_AR')
+        self.declare_partials('EmptyWeight', 'tail_AR')
+        self.declare_partials('EmptyWeight', 'v_inf')
 
     def compute(self, inputs, outputs):
         rho = self.options['rho']
@@ -40,17 +39,13 @@ class GrossWeightComp(ExplicitComponent):
         tail_span = inputs['tail_span']
         w_design = inputs['w_design']
         load_factor = inputs['load_factor']
-        w_pax = inputs['w_pax']
         w_else = inputs['w_else']
         v_inf = inputs['v_inf']
 
-        outputs['w_wing'] = 0.036*(wing_area**0.758)*(wing_AR**0.6)*((0.5*rho*v_inf*v_inf)**0.006)*((100*wing_tc)**-0.3)*((load_factor*w_design)**0.49)
-        outputs['w_tail'] = 0.016*((load_factor*w_design)**0.414)*((0.5*rho*v_inf*v_inf)**0.168)*(tail_area**0.896)*((100*tail_tc)**-0.12)*(tail_AR**0.043)
+        w_wing = inputs['w_wing']
+        w_tail = inputs['w_tail']
 
-        w_wing = outputs['w_wing']
-        w_tail = outputs['w_tail']
-
-        outputs['GrossWeight'] = w_wing + w_tail + w_else + w_pax
+        outputs['EmptyWeight'] = w_wing + w_tail + w_else
 
     def compute_partials(self, inputs, partials):
         rho = self.options['rho']
@@ -65,11 +60,10 @@ class GrossWeightComp(ExplicitComponent):
         tail_span = inputs['tail_span']
         w_design = inputs['w_design']
         load_factor = inputs['load_factor']
-        w_pax = inputs['w_pax']
         w_else = inputs['w_else']
         v_inf = inputs['v_inf']
 
-        partials['GrossWeight', 'wing_AR'] = 0.6*0.036*(wing_area**0.758)*(wing_AR**-0.4)*((0.5*rho*v_inf*v_inf)**0.006)*((100*wing_tc)**-0.3)*((load_factor*w_design)**0.49)
-        partials['GrossWeight', 'tail_AR'] = 0.043*0.016*((load_factor*w_design)**0.414)*((0.5*rho*v_inf*v_inf)**0.168)*(tail_area**0.896)*((100*tail_tc)**-0.12)*(tail_AR**-0.957)
-        partials['GrossWeight', 'v_inf'] = 0.036*(wing_area**0.758)*(wing_AR**0.6)*((100*wing_tc)**-0.3)*((load_factor*w_design)**0.49)*((0.5*rho)**0.006)*(0.012)*(v_inf**(0.012 - 1)) \
+        partials['EmptyWeight', 'wing_AR'] = 0.6*0.036*(wing_area**0.758)*(wing_AR**-0.4)*((0.5*rho*v_inf*v_inf)**0.006)*((100*wing_tc)**-0.3)*((load_factor*w_design)**0.49)
+        partials['EmptyWeight', 'tail_AR'] = 0.043*0.016*((load_factor*w_design)**0.414)*((0.5*rho*v_inf*v_inf)**0.168)*(tail_area**0.896)*((100*tail_tc)**-0.12)*(tail_AR**-0.957)
+        partials['EmptyWeight', 'v_inf'] = 0.036*(wing_area**0.758)*(wing_AR**0.6)*((100*wing_tc)**-0.3)*((load_factor*w_design)**0.49)*((0.5*rho)**0.006)*(0.012)*(v_inf**(0.012 - 1)) \
                                         + 0.016*((load_factor*w_design)**0.414)*(tail_area**0.896)*((100*tail_tc)**-0.12)*(tail_AR**0.043)*((0.5*rho)**0.168)*(2*0.168)*(v_inf**(2*0.168 - 1))
