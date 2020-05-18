@@ -1,6 +1,6 @@
 # OBJECTIVE FUNCTION: MINIMIZE (negative) Profit
 
-# DESIGN VARIABLES (w.r.t) :
+# DESIGN VARIABLES (w.r.t) : 
 #       wing_alpha - WING AOA
 #       wing_ar - WING ASPECT RATIO
 #       wing_area - WING SURFACE AREA
@@ -32,10 +32,10 @@ from openmdao.api import Problem, Group, IndepVarComp, ExecComp, ScipyOptimizeDr
 from UAM_team_optimization.components.cl_wing_comp import CLWingComp
 from UAM_team_optimization.components.cl_tail_comp import CLTailComp
 from UAM_team_optimization.components.geometry_comp import GeometryComp
-from UAM_team_optimization.components.emptyweight_comp import EmptyWeightComp
-from UAM_team_optimization.components.grossweight_comp import GrossWeightComp
-from UAM_team_optimization.components.xcg_comp import XCGComp
-from UAM_team_optimization.components.xnp_comp import XNPComp
+from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
+from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
+from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
+from UAM_team_optimization.components.weightsandstability.xnp_comp import XNPComp
 
 prob = Problem()
 model = Group()
@@ -116,8 +116,7 @@ model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 
 # NP Location from nose [m]
 # comp = XNPComp()
-# model.add_subsystem('
-# xnp_comp', comp, promotes=['*'])
+# model.add_subsystem('xnp_comp', comp, promotes=['*'])
 
 # Static Margin [%]
 # comp = ExecComp('SM = (XNP - XAC) / MAC')
@@ -128,7 +127,7 @@ model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 # comp = ExecComp('M = (wing_lift * XCG) - tail_lift * (tail_arm - XCG)')
 # comp.add_constraint('M', equals=0.)
 # model.add_subsystem('m_comp', comp, promotes=['*'])
-r
+
 
 prob.model = model
 
