@@ -1,15 +1,15 @@
 import unittest
 
-from UAM_team_optimization.components.cl_wing_comp import CLWingComp
+from UAM_team_optimization.components.cdi_wing_comp import CDiWingComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials 
 
 
-class TestCLWingComp(unittest.TestCase):
+class TestCDiWingComp(unittest.TestCase):
 
     def test_component_and_derivatives(self):
         prob = Problem()
-        prob.model = CLWingComp()
+        prob.model = CDiWingComp()
         prob.setup()
         prob.run_model()
 

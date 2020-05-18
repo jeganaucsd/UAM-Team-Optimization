@@ -29,9 +29,9 @@
 
 import numpy as np
 from openmdao.api import Problem, Group, IndepVarComp, ExecComp, ScipyOptimizeDriver
-# from UAM_team_optimization.components.cl_wing_comp import CLWingComp
-# from UAM_team_optimization.components.cl_tail_comp import CLTailComp
-# from UAM_team_optimization.components.geometry_comp import GeometryComp
+from UAM_team_optimization.components.cl_wing_comp import CLWingComp
+from UAM_team_optimization.components.cl_tail_comp import CLTailComp
+from UAM_team_optimization.components.geometry_comp import GeometryComp
 from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
@@ -53,10 +53,8 @@ comp.add_output('wing_alpha', val = 0.1)
 comp.add_output('wing_CLa', val = 2*np.pi)
 comp.add_output('wing_CL0', val = 0.2)
 comp.add_output('wing_AR', val = 8 )
-comp.add_output('wing_area', val = 25.)
+comp.add_output('wing_area', val = 25 )
 comp.add_output('wing_span', val=15.)
-comp.add_output('wing_tc', val=0.76)
-
 
 # Tail
 comp.add_output('tail_alpha', val = 0)
@@ -65,8 +63,6 @@ comp.add_output('tail_CL0', val = 0.2)
 comp.add_output('tail_AR', val = 8 )
 comp.add_output('tail_area', val = 4 )
 comp.add_output('tail_span', val=2.)
-comp.add_output('tail_tc', val=0.9)
-
 
 # Propeller
 comp.add_output('wing_prop_inner_rad',val = 0.8)

@@ -17,8 +17,7 @@ class PreprocessGroup(Group):
         shape = self.options['shape']
 
         comp = IndepVarComp()
-        comp.add_output('altitude', shape=shape)
-        comp.add_output('speed', shape=shape)
-        comp.add_output('distance', shape=shape)
-        comp.add_output('time', shape=shape)
+        comp.add_output('altitude', val = 1500, shape=shape)
+        comp.add_output('speed', val = 67, shape=shape)
+        comp.add_output('wing_area', val = 25, shape=shape)
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
