@@ -1,6 +1,6 @@
 # OBJECTIVE FUNCTION: MINIMIZE (negative) Profit
 
-# DESIGN VARIABLES (w.r.t) : 
+# DESIGN VARIABLES (w.r.t) :
 #       wing_alpha - WING AOA
 #       wing_ar - WING ASPECT RATIO
 #       wing_area - WING SURFACE AREA
@@ -29,9 +29,9 @@
 
 import numpy as np
 from openmdao.api import Problem, Group, IndepVarComp, ExecComp, ScipyOptimizeDriver
-from UAM_team_optimization.components.cl_wing_comp import CLWingComp
-from UAM_team_optimization.components.cl_tail_comp import CLTailComp
-from UAM_team_optimization.components.geometry_comp import GeometryComp
+# from UAM_team_optimization.components.cl_wing_comp import CLWingComp
+# from UAM_team_optimization.components.cl_tail_comp import CLTailComp
+# from UAM_team_optimization.components.geometry_comp import GeometryComp
 from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
