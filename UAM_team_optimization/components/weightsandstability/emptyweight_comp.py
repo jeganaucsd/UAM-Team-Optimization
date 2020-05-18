@@ -72,9 +72,19 @@ class EmptyWeightComp(ExplicitComponent):
         w_else = inputs['w_else']
         v_inf = inputs['v_inf']
 
-        partials['EmptyWeight', 'wing_area'] =
+        partials['EmptyWeight', 'wing_area'] = 0.036* \
+                                               0.758*(wing_area**(1-0.758))* \
+                                               (wing_AR**0.6)* \
+                                               ((0.5*rho*v_inf*v_inf)**0.006)* \
+                                               ((100*wing_tc)**-0.3)* \
+                                               ((load_factor*w_design)**0.49)
 
-        partials['EmptyWeight', 'wing_tc'] =
+        partials['EmptyWeight', 'wing_tc'] = 0.036* \
+                                             (wing_area**0.758)* \
+                                             (wing_AR**0.6)* \
+                                             ((0.5*rho*v_inf*v_inf)**0.006)* \
+                                             100*(-0.3)*((100*wing_tc)**(-0.3-1))* \
+                                             ((load_factor*w_design)**0.49)
 
         partials['EmptyWeight', 'wing_AR'] = 0.6*0.036* \
                                              (wing_area**0.758)* \
@@ -83,9 +93,19 @@ class EmptyWeightComp(ExplicitComponent):
                                              ((100*wing_tc)**-0.3)* \
                                              ((load_factor*w_design)**0.49)
 
-        partials['EmptyWeight', 'tail_area'] =
+        partials['EmptyWeight', 'tail_area'] = 0.016* \
+                                               ((load_factor*w_design)**0.414)* \
+                                               ((0.5*rho*v_inf*v_inf)**0.168)* \
+                                               0.896*(tail_area**(1-0.896))* \
+                                               ((100*tail_tc)**-0.12)* \
+                                               (tail_AR**0.043)
 
-        partials['EmptyWeight', 'tail_tc'] =
+        partials['EmptyWeight', 'tail_tc'] = 0.016* \
+                                             ((load_factor*w_design)**0.414)* \
+                                             ((0.5*rho*v_inf*v_inf)**0.168)* \
+                                             (tail_area**0.896)* \
+                                             100*(-0.12)*((100*tail_tc)**(-0.12-1))* \
+                                             (tail_AR**0.043)
 
         partials['EmptyWeight', 'tail_AR'] = 0.043*0.016* \
                                              ((load_factor*w_design)**0.414)* \
@@ -94,11 +114,33 @@ class EmptyWeightComp(ExplicitComponent):
                                              ((100*tail_tc)**-0.12)* \
                                              (tail_AR**-0.957)
 
-        partials['EmptyWeight', 'load_factor'] =
+        partials['EmptyWeight', 'load_factor'] = 0.036* \
+                                                 (wing_area**0.758)* \
+                                                 (wing_AR**0.6)* \
+                                                 ((0.5*rho*v_inf*v_inf)**0.006)* \
+                                                 ((100*wing_tc)**-0.3)* \
+                                                 w_design*0.49*((load_factor*w_design)**(1-0.49)) + \
+                                                 0.016* \
+                                                 w_design*0.414*((load_factor*w_design)**(1-0.414))* \
+                                                 ((0.5*rho*v_inf*v_inf)**0.168)* \
+                                                 (tail_area**0.896)* \
+                                                 ((100*tail_tc)**-0.12)* \
+                                                 (tail_AR**0.043)
 
-        partials['EmptyWeight', 'w_design'] =
+        partials['EmptyWeight', 'w_design'] = 0.036* \
+                                              (wing_area**0.758)* \
+                                              (wing_AR**0.6)* \
+                                              ((0.5*rho*v_inf*v_inf)**0.006)* \
+                                              ((100*wing_tc)**-0.3)* \
+                                              load_factor*0.49*((load_factor*w_design)**(1-0.49)) + \
+                                              0.016* \
+                                              load_factor*0.414*((load_factor*w_design)**(1-0.414))* \
+                                              ((0.5*rho*v_inf*v_inf)**0.168)* \
+                                              (tail_area**0.896)* \
+                                              ((100*tail_tc)**-0.12)* \
+                                              (tail_AR**0.043)
 
-        partials['EmptyWeight', 'w_else'] =
+        partials['EmptyWeight', 'w_else'] = 1.
 
         partials['EmptyWeight', 'v_inf'] = 0.036* \
                                            (wing_area**0.758)* \
