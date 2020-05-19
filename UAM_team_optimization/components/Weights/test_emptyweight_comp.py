@@ -1,15 +1,16 @@
 import unittest
 
-# from grossweight_comp import GrossWeightComp
-from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
+# from emptyweight_comp import EmptyWeightComp
+from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 
 
-class TestGrossWeightComp(unittest.TestCase):
+class TestEmptyWeightComp(unittest.TestCase):
+
     def test_component_and_derivatives(self):
         prob = Problem()
-        prob.model = GrossWeightComp(rho=1.2)
+        prob.model = EmptyWeightComp(rho=1.2)
         prob.setup()
         prob.run_model()
 
