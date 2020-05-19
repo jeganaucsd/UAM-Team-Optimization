@@ -43,7 +43,7 @@ model = Group()
 comp = IndepVarComp()
 
 # Initial Weights
-comp.add_output('w_design', val=26700.)
+comp.add_output('w_design', val=26000.)
 comp.add_output('w_pax', val=900.)
 comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
 comp.add_output('load_factor', val=3.8)
