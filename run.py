@@ -86,7 +86,7 @@ comp = GrossWeightComp(rho=1.2)
 model.add_subsystem('grossweight_comp', comp, promotes=['*'])
 
 # Empty Weight [N]
-comp = EmptyWeightComp(rho=1.2)
+comp = EmptyWeightComp(rho=1.5)
 model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 
 # CG Location from nose [m]
