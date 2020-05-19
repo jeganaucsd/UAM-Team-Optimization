@@ -33,6 +33,10 @@ from openmdao.api import Problem, Group, IndepVarComp, ExecComp, ScipyOptimizeDr
 from UAM_team_optimization.components.cl_wing_comp import CLWingComp
 from UAM_team_optimization.components.cl_tail_comp import CLTailComp
 from UAM_team_optimization.components.geometry_comp import GeometryComp
+from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
+from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
+from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
+from UAM_team_optimization.components.weightsandstability.xnp_comp import XNPComp
 
 prob = Problem()
 model = Group()
@@ -94,11 +98,6 @@ comp.add_design_var('nmflts')
 model.add_subsystem('inputs_comp', comp, promotes = ['*'])
 
 # WEIGHTS/STABILITY COMPONENTS
-
-from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
-from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
-from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
-from UAM_team_optimization.components.weightsandstability.xnp_comp import XNPComp
 
 # Gross Weight [N]
 comp = GrossWeightComp(rho=1.2)
