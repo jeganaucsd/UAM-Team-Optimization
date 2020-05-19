@@ -1,7 +1,7 @@
 from openmdao.api import ExplicitComponent
 import numpy as np
 
-class XNPComp(ExplicitComponent):
+class XCGComp(ExplicitComponent):
 
     def setup(self):
         self.add_input('l')
