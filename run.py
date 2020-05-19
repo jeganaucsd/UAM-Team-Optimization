@@ -1,32 +1,32 @@
 # Maximize Profit w.r.t:
 # Describe optimization problem
-# 
+#
 # Model Inputs: ...
 # Model Outputs: ...
 
 # Models:
     # Model Inputs:
-        # input_comp :   Model inputs (not limited to desgin variables 
+        # input_comp :   Model inputs (not limited to desgin variables
                         # --> Not all model inputs are design variables)
     # Aerodynamics
         # aero_comp_1 : Equation
         # aero_comp_2 : Equation
         # ...
-    # Propulsion 
+    # Propulsion
         # prop_comp_1 : Equation
         # prop_copm_2 : Equation
         # ...
     # Weights and Stability
-        # weight_comp_1 : Equation 
+        # weight_comp_1 : Equation
         # weight_comp_2 : Equation
         # ...
-    # Economics 
+    # Economics
         # econ_comp_1 : Equation
         # econ_comp_2 : Equation
         # ...
-    # Performance 
+    # Performance
         # perf_comp_1 : Equation
-        # perf_comp_2 : Equation 
+        # perf_comp_2 : Equation
     # Model Outpu:
         # output_comp : Model Outputs = Profit
 
@@ -42,6 +42,10 @@ from UAM_team_optimization.components.geometry_comp import GeometryComp
 from UAM_team_optimization.components.propulsion_comp import wing_outer_prop_thrust_coeff, wing_inner_prop_thrust_coeff,tail_prop_thrust_coeff
 from UAM_team_optimization.components.axial_int_comp import AxialIntComp
 from UAM_team_optimization.components.percent_blown_comp import PercentBlownComp
+from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
+from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
+from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
+from UAM_team_optimization.components.weightsandstability.xnp_comp import XNPComp
 
 prob = Problem()
 model = Group()
@@ -49,7 +53,7 @@ model = Group()
 comp = IndepVarComp()
 
 #Adding Input variables which are the outputs of input_comp
-# Wing 
+# Wing
 comp.add_output('wing_alpha', val = 0.1)
 comp.add_output('wing_CLa', val = 2*np.pi)
 comp.add_output('wing_CL0', val = 0.2)
@@ -65,7 +69,7 @@ comp.add_output('tail_CD0', val = 0.015)
 comp.add_output('tail_e', val = 0.85)
 comp.add_output('tail_AR', val = 8 )
 comp.add_output('tail_area', val = 4 )
-# Propeller 
+# Propeller
 comp.add_output('wing_prop_inner_rad',val = 0.8)
 comp.add_output('wing_prop_outer_rad',val = 0.8)
 comp.add_output('tail_prop_rad',val = 0.8)
@@ -82,7 +86,7 @@ comp = GrossWeightComp(rho=1.2)
 model.add_subsystem('grossweight_comp', comp, promotes=['*'])
 
 # Empty Weight [N]
-comp = EmptyWeightComp(rho=1.8)
+comp = EmptyWeightComp(rho=1.2)
 model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 
 # CG Location from nose [m]
@@ -120,7 +124,7 @@ model.add_subsystem('tail_ld_comp', comp, promotes = ['*'])
 
 
 
-prob.model = model 
+prob.model = model
 prob.setup(check = True)
 prob.run_model()
 prob.check_partials(compact_print=True)
