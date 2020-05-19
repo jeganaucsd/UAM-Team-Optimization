@@ -69,10 +69,16 @@ from UAM_team_optimization.components.ac_comp import AcComp
 
 prob = Problem()
 model = Group()
-prob.model = model
-prob.setup()
+
 
 comp = IndepVarComp()
+
+# Initial Weights
+comp.add_output('w_design', val=26700.)
+comp.add_output('w_pax', val=900.)
+comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
+comp.add_output('load_factor', val=3.8)
+
 # comp.add_output('EmptyWeight', val=6000)
 comp.add_output('v_inf' , val= 60)
 comp.add_output('q' , val= 250)
@@ -208,6 +214,7 @@ model.add_subsystem('structcost_comp', comp, promotes=['*'])
 comp=AcComp()
 model.add_subsystem('ac_comp', comp, promotes=['*'])
 
+prob.model = model
 prob.setup(check = True)
 prob.run_model()
 prob.check_partials(compact_print=True)
