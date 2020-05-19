@@ -39,14 +39,19 @@ from UAM_team_optimization.components.Aero.cl_wing_comp import CLWingComp
 from UAM_team_optimization.components.Aero.cl_tail_comp import CLTailComp
 from UAM_team_optimization.components.Aero.cdi_wing_comp import CDiWingComp
 from UAM_team_optimization.components.Aero.cdi_tail_comp import CDiTailComp
+
 from UAM_team_optimization.components.Geometry.geometry_comp import GeometryComp
+
 from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_outer_prop_thrust_coeff, wing_inner_prop_thrust_coeff,tail_prop_thrust_coeff
+
 from UAM_team_optimization.components.Aero.axial_int_comp import AxialIntComp
 from UAM_team_optimization.components.Aero.percent_blown_comp import PercentBlownComp
+
 from UAM_team_optimization.components.weightsandstability.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.weightsandstability.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.weightsandstability.xcg_comp import XCGComp
 from UAM_team_optimization.components.weightsandstability.xnp_comp import XNPComp
+
 from UAM_team_optimization.components.enghr_comp import EngHrComp
 from UAM_team_optimization.components.mfghr_comp import MfgHrComp
 from UAM_team_optimization.components.toolhr_comp import ToolHrComp
@@ -69,7 +74,7 @@ prob.setup()
 
 comp = IndepVarComp()
 # comp.add_output('EmptyWeight', val=6000)
-comp.add_output('v_inf' , val= 240)
+comp.add_output('v_inf' , val= 60)
 comp.add_output('q' , val= 250)
 comp.add_output('EngRt' , val= 40)
 comp.add_output('MfgRt' , val= 30)
