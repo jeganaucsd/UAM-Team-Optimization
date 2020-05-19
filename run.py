@@ -75,6 +75,19 @@ comp.add_output('tail_thrust_coeff', val = tail_prop_thrust_coeff)
 
 model.add_subsystem('inputs_comp', comp, promotes = ['*'])
 
+# WEIGHTS/STABILITY COMPONENTS
+
+# Gross Weight [N]
+comp = GrossWeightComp(rho=1.2)
+model.add_subsystem('grossweight_comp', comp, promotes=['*'])
+
+# Empty Weight [N]
+comp = EmptyWeightComp(rho=1.8)
+model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
+
+# CG Location from nose [m]
+# comp = XCGComp()
+# model.add_subsystem('xcg_comp', comp, promotes=['*'])
 
 comp = GeometryComp()
 model.add_subsystem('geometry_comp', comp, promotes = ['*'])
