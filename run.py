@@ -50,6 +50,9 @@ from UAM_team_optimization.components.Geometry.geometry_comp import GeometryComp
 from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_outer_prop_thrust_coeff, wing_inner_prop_thrust_coeff,tail_prop_thrust_coeff
 
 # Import components from WEIGHTS:
+from UAM_team_optimization.components.Weights.wingweight_comp import WingWeightComp
+# from UAM_team_optimization.components.Weights.tailweight_comp import TailWeightComp
+from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.Weights.xcg_comp import XCGComp
@@ -115,6 +118,10 @@ comp.add_output('w_design', val=26700.)
 comp.add_output('w_pax', val=900.)
 comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
 comp.add_output('load_factor', val=3.8)
+comp.add_output('x_wingc4', val=1.)
+comp.add_output('x_tailc4', val=2.)
+comp.add_output('x_else', val=3.)
+comp.add_output('x_pax', val=4.)
 
 # Economics initial values:
 comp.add_output('EngRt' , val= 40)
@@ -177,6 +184,14 @@ model.add_subsystem('wing_ld_comp', comp, promotes = ['*'])
 # Total lift/drag, tail:
 comp = ExecComp('tail_LD = tail_CL/tail_CD')
 model.add_subsystem('tail_ld_comp', comp, promotes = ['*'])
+
+# Wing Weight [N]
+comp = WingWeightComp(rho=1.2)
+model.add_subsystem('wingweight_comp', comp, promotes=['*'])
+
+# Tail Weight [N]
+# comp = TailWeightComp(rho=1.2)
+# model.add_subsystem('tailweight_comp', comp, promotes=['*'])
 
 # Gross Weight [N]
 comp = GrossWeightComp(rho=1.2)
@@ -255,10 +270,11 @@ prob.check_partials(compact_print=True)
 # print('thrust_coeff',prob['thrust_coeff'])
 # print('axial_int_fac',prob['axial_int_fac'])
 # print('wing_blown_percent', prob['wing_blown_percent'])
-
+#
+print('w_wing', prob['w_wing'])
 # print('EmptyWeight', prob['EmptyWeight'])
 # print('GrossWeight', prob['GrossWeight'])
-
+#
 # print('EngHr', prob['EngHr'])
 # print('MfgHr', prob['MfgHr'])
 # print('ToolHr', prob['ToolHr'])
@@ -273,4 +289,4 @@ prob.check_partials(compact_print=True)
 # print('StructCost', prob['StructCost'])
 # print('Ac', prob['Ac'])
 
-prob.model.list_outputs()
+# prob.model.list_outputs()
