@@ -289,4 +289,4 @@ print('w_wing', prob['w_wing'])
 # print('StructCost', prob['StructCost'])
 # print('Ac', prob['Ac'])
 
-# prob.model.list_outputs()
+prob.model.list_outputs()
