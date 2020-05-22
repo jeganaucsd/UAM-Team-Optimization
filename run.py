@@ -51,7 +51,7 @@ from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_out
 
 # Import components from WEIGHTS:
 from UAM_team_optimization.components.Weights.wingweight_comp import WingWeightComp
-# from UAM_team_optimization.components.Weights.tailweight_comp import TailWeightComp
+from UAM_team_optimization.components.Weights.tailweight_comp import TailWeightComp
 from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeightComp
@@ -118,7 +118,7 @@ comp.add_output('w_design', val=26700.)
 comp.add_output('w_pax', val=900.)
 comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
 comp.add_output('load_factor', val=3.8)
-comp.add_output('x_wingc4', val=1.)
+comp.add_output('x_wingc4', val=1.) # from jake: will check x2 later
 comp.add_output('x_tailc4', val=2.)
 comp.add_output('x_else', val=3.)
 comp.add_output('x_pax', val=4.)
@@ -190,8 +190,8 @@ comp = WingWeightComp(rho=1.2)
 model.add_subsystem('wingweight_comp', comp, promotes=['*'])
 
 # Tail Weight [N]
-# comp = TailWeightComp(rho=1.2)
-# model.add_subsystem('tailweight_comp', comp, promotes=['*'])
+comp = TailWeightComp(rho=1.2)
+model.add_subsystem('tailweight_comp', comp, promotes=['*'])
 
 # Gross Weight [N]
 comp = GrossWeightComp(rho=1.2)
@@ -202,8 +202,8 @@ comp = EmptyWeightComp(rho=1.2)
 model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 
 # CG Location from nose [m]
-# comp = XCGComp()
-# model.add_subsystem('xcg_comp', comp, promotes=['*'])
+comp = XCGComp()
+model.add_subsystem('xcg_comp', comp, promotes=['*'])
 
 # Cost, engineering hours:
 comp=EngHrComp()
@@ -271,9 +271,11 @@ prob.check_partials(compact_print=True)
 # print('axial_int_fac',prob['axial_int_fac'])
 # print('wing_blown_percent', prob['wing_blown_percent'])
 #
-print('w_wing', prob['w_wing'])
+# print('w_wing', prob['w_wing'])
+# print('w_tail', prob['w_tail'])
 # print('EmptyWeight', prob['EmptyWeight'])
 # print('GrossWeight', prob['GrossWeight'])
+# print('xcg', prob['xcg'])
 #
 # print('EngHr', prob['EngHr'])
 # print('MfgHr', prob['MfgHr'])

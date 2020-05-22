@@ -4,22 +4,32 @@ import numpy as np
 class XNPComp(ExplicitComponent):
 
     def setup(self):
-        self.add_input('l')
-        self.add_input('w')
-        self.add_output('A')
+        self.add_input('wing_area')
+        self.add_input('tail_area')
+        self.add_input('x_wingc4')
+        self.add_input('x_tailc4')
+        self.add_output('xnp')
 
-        self.declare_partials('A', 'l')
-        self.declare_partials('A', 'w')
+        self.declare_partials('xnp', 'wing_area')
+        self.declare_partials('xnp', 'tail_area')
+        self.declare_partials('xnp', 'x_wingc4')
+        self.declare_partials('xnp', 'x_tailc4')
 
     def compute(self, inputs, outputs):
-        l = inputs['l']
-        w = inputs['w']
+        wing_area = inputs['wing_area']
+        tail_area = inputs['tail_area']
+        x_wingc4 = inputs['x_wingc4']
+        x_tailc4 = inputs['x_tailc4']
 
-        outputs['A'] = l * w
+        outputs['xnp'] = (wing_area*x_wingc4 + tail_area*x_tailc4) / (wing_area + tail_area)
 
     def compute_partials(self, inputs, partials):
-        l = inputs['l']
-        w = inputs['w']
+        wing_area = inputs['wing_area']
+        tail_area = inputs['tail_area']
+        x_wingc4 = inputs['x_wingc4']
+        x_tailc4 = inputs['x_tailc4']
 
-        partials['A', 'l'] = w
-        partials['A', 'w'] = l
+        partials['xnp', 'x_wingc4'] =
+        partials['xnp', 'x_tailc4'] =
+        partials['xnp', 'wing_area'] =
+        partials['xnp', 'tail_area'] = 
