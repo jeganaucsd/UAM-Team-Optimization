@@ -291,4 +291,4 @@ prob.check_partials(compact_print=True)
 # print('StructCost', prob['StructCost'])
 # print('Ac', prob['Ac'])
 
-# prob.model.list_outputs()
+prob.model.list_outputs()
