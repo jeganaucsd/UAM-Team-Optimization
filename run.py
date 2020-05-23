@@ -95,6 +95,7 @@ comp.add_output('wing_CD0', val = 0.015)
 comp.add_output('wing_e', val = 0.85)
 comp.add_output('wing_AR', val = 8 )
 comp.add_output('wing_area', val = 25 )
+comp.add_output('wing_tc', val = 0.8 ) # from jake: to verify
 
 # Tail inital values:
 comp.add_output('tail_alpha', val = 0)
@@ -104,6 +105,7 @@ comp.add_output('tail_CD0', val = 0.015)
 comp.add_output('tail_e', val = 0.85)
 comp.add_output('tail_AR', val = 8 )
 comp.add_output('tail_area', val = 4 )
+comp.add_output('tail_tc', val = 0.8 ) # from jake: to verify
 
 # Propeller inital values:
 comp.add_output('wing_prop_inner_rad',val = 0.8)
