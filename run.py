@@ -57,7 +57,7 @@ from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeigh
 from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.Weights.xcg_comp import XCGComp
 from UAM_team_optimization.components.Weights.xnp_comp import XNPComp
-# from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
+from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
 
 # Import components from ECONOMICS:
 from UAM_team_optimization.components.Economics.enghr_comp import EngHrComp
@@ -122,6 +122,7 @@ comp.add_output('x_wingc4', val=1.) # from jake: will check x2 later
 comp.add_output('x_tailc4', val=2.)
 comp.add_output('x_else', val=3.)
 comp.add_output('x_pax', val=4.)
+comp.add_output('MAC', val=5.)
 
 # Economics initial values:
 comp.add_output('EngRt' , val= 40)
@@ -204,6 +205,14 @@ model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 # CG Location from nose [m]
 comp = XCGComp()
 model.add_subsystem('xcg_comp', comp, promotes=['*'])
+
+# NP Location from nose [m]
+comp = XNPComp()
+model.add_subsystem('xnp_comp', comp, promotes=['*'])
+
+# Static margin [%]
+comp = StaticMarginComp()
+model.add_subsystem('staticmargin_comp', comp, promotes=['*'])
 
 # Cost, engineering hours:
 comp=EngHrComp()

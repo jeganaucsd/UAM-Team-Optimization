@@ -29,7 +29,7 @@ class XNPComp(ExplicitComponent):
         x_wingc4 = inputs['x_wingc4']
         x_tailc4 = inputs['x_tailc4']
 
-        partials['xnp', 'x_wingc4'] =
-        partials['xnp', 'x_tailc4'] =
-        partials['xnp', 'wing_area'] =
-        partials['xnp', 'tail_area'] = 
+        partials['xnp', 'x_wingc4'] = wing_area/(tail_area + wing_area)
+        partials['xnp', 'x_tailc4'] = tail_area/(tail_area + wing_area)
+        partials['xnp', 'wing_area'] = x_wingc4/(tail_area + wing_area) - (tail_area*x_tailc4 + wing_area*x_wingc4)/(tail_area + wing_area)**2.
+        partials['xnp', 'tail_area'] = x_tailc4/(tail_area + wing_area) - (tail_area*x_tailc4 + wing_area*x_wingc4)/(tail_area + wing_area)**2.
