@@ -3,8 +3,8 @@ from openmdao.api import ExplicitComponent
 
 # from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
 
-import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
-import SimpleRotor, SimpleMotor
+from lsdo_aircraft import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
+from lsdo_aircraft import SimpleRotor, SimpleMotor
 
 import numpy as np
 
