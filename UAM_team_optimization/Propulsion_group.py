@@ -2,8 +2,8 @@ from openmdao.api import Group, IndepVarComp
 
 # from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
 
-from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
-from lsdo_aircraft.api import SimpleRotor, SimpleMotor
+from lsdo-aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
+from lsdo-aircraft.api import SimpleRotor, SimpleMotor
 from openmdao.api import ExplicitComponent
 
 import numpy as np
@@ -60,8 +60,8 @@ class PropulsionGroup(Group):
 
     def setup(self):
         shape = self.options['shape']
-        
-        # 
+
+        #
 
         wing_left_outer_prop_group = PowertrainGroup(
             shape=shape,

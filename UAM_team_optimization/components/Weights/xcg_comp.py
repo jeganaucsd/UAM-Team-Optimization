@@ -54,8 +54,8 @@ class XCGComp(ExplicitComponent):
         x_pax = inputs['x_pax']
         GrossWeight = inputs['GrossWeight']
 
-        partials['xcg', 'w_wing'] = x_wing / GrossWeight
-        partials['xcg', 'w_tail'] =  x_tail / GrossWeight
+        partials['xcg', 'w_wing'] = x_wingc4 / GrossWeight
+        partials['xcg', 'w_tail'] =  x_tailc4 / GrossWeight
         partials['xcg', 'w_else'] = x_else / GrossWeight
         partials['xcg', 'w_pax'] =  x_pax / GrossWeight
         partials['xcg', 'x_wingc4'] = w_wing / GrossWeight
