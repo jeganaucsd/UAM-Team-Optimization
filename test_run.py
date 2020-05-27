@@ -3,6 +3,9 @@ import numpy as np
 from openmdao.api import Problem, IndepVarComp, Group
 from openmdao.api import ExplicitComponent
 
+from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
+from lsdo_aircraft.api import SimpleRotor, SimpleMotor
+
 import numpy as np
 
 from UAM_team_optimization.Aero_group import AeroGroup
