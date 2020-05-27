@@ -19,11 +19,11 @@ class MotorCostComp(ExplicitComponent):
         num_motor = inputs['num_motor']
         q = inputs['q']
 
-        outputs['MotorCost'] = 10000 * num_motor * q
+        outputs['MotorCost'] = 40000 * num_motor * q
 
     def compute_partials(self, inputs, partials):
        
         num_motor = inputs['num_motor']
         q = inputs['q']
 
-        partials['MotorCost', 'q'] = 10000 * num_motor
+        partials['MotorCost', 'q'] = 40000 * num_motor
