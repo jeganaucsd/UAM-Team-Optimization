@@ -1,10 +1,10 @@
-from openmdao.api import Group, IndepVarComp
+from openmdao.api import Problem, IndepVarComp
+
+from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
+from lsdo_aircraft.api import SimpleRotor, SimpleMotor
+#from lsdo_aircraft.preprocess.preprocess_group import PreprocessGroup
+# from lsdo_aircraft.api import SimpleRotorGroup
 from openmdao.api import ExplicitComponent
-
-# from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
-
-from lsdo_aircraft import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
-from lsdo_aircraft import SimpleRotor, SimpleMotor
 
 import numpy as np
 
