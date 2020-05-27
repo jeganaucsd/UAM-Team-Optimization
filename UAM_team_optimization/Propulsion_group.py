@@ -1,4 +1,4 @@
-from openmdao.api import Problem, IndepVarComp
+from openmdao.api import Problem, IndepVarComp, Group
 
 from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
 from lsdo_aircraft.api import SimpleRotor, SimpleMotor
