@@ -6,7 +6,6 @@ from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeigh
 from UAM_team_optimization.components.Weights.wingweight_comp import WingWeightComp
 from UAM_team_optimization.components.Weights.xcg_comp import XCGComp
 from UAM_team_optimization.components.Weights.xnp_comp import XNPComp
-from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
 
 
 
@@ -17,8 +16,8 @@ class WeightsGroup(Group):
 
     def setup(self):
         shape = self.options['shape']
-
-        #
+        
+        # 
         comp = EmptyWeightComp(rho=1.2)
         self.add_subsystem('emptyweight_comp', comp, promotes = ['*'])
         comp = GrossWeightComp(rho=1.2)
@@ -29,5 +28,3 @@ class WeightsGroup(Group):
         self.add_subsystem('xcg_comp', comp, promotes = ['*'])
         comp = XNPComp()
         self.add_subsystem('xnp_comp', comp, promotes = ['*'])
-        comp = StaticMarginComp()
-        self.add_subsystem('staticmargin_comp', comp, promotes=['*'])
