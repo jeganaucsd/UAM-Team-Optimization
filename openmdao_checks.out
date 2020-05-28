@@ -1,2 +1,11 @@
+<<<<<<< HEAD
 WARNING: The Problem has no recorder of any kind attached
+=======
+INFO: checking out_of_order
+INFO: checking system
+INFO: checking solvers
+INFO: checking dup_inputs
+INFO: checking missing_recorders
+>>>>>>> 03aaea7f0ba2e2938e6e47ea0763bc0739d99b98
 WARNING: The Problem has no recorder of any kind attached
+INFO: checking comp_has_no_outputs
