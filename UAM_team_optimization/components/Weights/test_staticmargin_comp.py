@@ -1,7 +1,7 @@
 import unittest
 # NO GO
+from .staticmargin_comp import StaticMarginComp
 # from staticmargin_comp import StaticMarginComp
-from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 

@@ -1,7 +1,7 @@
 import unittest
 
+from .xcg_comp import XCGComp
 # from xcg_comp import XCGComp
-from UAM_team_optimization.components.Weights.xcg_comp import XCGComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 
