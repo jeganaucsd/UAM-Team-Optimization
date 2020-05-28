@@ -1,7 +1,6 @@
 import unittest
 
-# from grossweight_comp import GrossWeightComp
-from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeightComp
+from grossweight_comp import GrossWeightComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 
