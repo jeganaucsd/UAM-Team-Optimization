@@ -1,6 +1,7 @@
 import unittest
 
-from tailweight_comp import TailWeightComp
+from .tailweight_comp import TailWeightComp
+# from tailweight_comp import TailWeightComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 

@@ -1,6 +1,7 @@
 import unittest
 
-from emptyweight_comp import EmptyWeightComp
+from .emptyweight_comp import EmptyWeightComp
+# from emptyweight_comp import EmptyWeightComp
 from openmdao.api import Problem
 from openmdao.utils.assert_utils import assert_check_partials
 
