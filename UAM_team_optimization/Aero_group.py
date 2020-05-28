@@ -7,6 +7,7 @@ from UAM_team_optimization.components.Aero.cdi_wing_comp import CDiWingComp
 from UAM_team_optimization.components.Aero.cdi_tail_comp import CDiTailComp
 from UAM_team_optimization.components.Aero.percent_blown_comp import PercentBlownComp
 from UAM_team_optimization.components.Aero.axial_int_comp import AxialIntComp
+from UAM_team_optimization.components.Aero.average_axial_int_comp import AverageAxialIntComp
 # from UAM_team_optimization.components.Aero.test_cl_wing_comp import TestCLWingComp
 # from UAM_team_optimization.components.Aero.test_cl_tail_comp import TestCLTailComp
 # from UAM_team_optimization.components.Aero.test_cdi_wing_comp import TestCDiWingComp
@@ -25,6 +26,12 @@ class AeroGroup(Group):
         shape = self.options['shape']
         
         # 
+        comp = PercentBlownComp()
+        self.add_subsystem('percent_blown_comp', comp, promotes=['*'])
+        comp = AxialIntComp()
+        self.add_subsystem('axial_int_comp', comp, promotes=['*'])
+        comp = AverageAxialIntComp()
+        self.add_subsystem('average_axial_int_comp', comp, promotes=['*'])
         comp = CLWingComp()
         self.add_subsystem('cl_wing_comp', comp, promotes=['*'])
         comp = CLTailComp()
@@ -33,10 +40,7 @@ class AeroGroup(Group):
         self.add_subsystem('cdi_wing_comp', comp, promotes=['*'])
         comp = CDiTailComp()
         self.add_subsystem('cdi_tail_comp', comp, promotes=['*'])
-        comp = PercentBlownComp()
-        self.add_subsystem('percent_blown_comp', comp, promotes=['*'])
-        comp = AxialIntComp()
-        self.add_subsystem('axial_int_comp', comp, promotes=['*'])
+       
         # comp = TestCLWingComp()
         # self.add_subsystem('test_cl_wing_comp', comp)
         # comp = TestCLTailComp()

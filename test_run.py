@@ -2,6 +2,7 @@ import numpy as np
 
 from openmdao.api import Problem, IndepVarComp, Group
 from openmdao.api import ExplicitComponent
+from lsdo_aircraft.api import SimpleRotor, SimpleMotor
 
 import numpy as np
 
@@ -89,5 +90,15 @@ prob['tail_right_prop_group.preprocess_group.speed'] = 67. * 0.25
 
 
 prob.run_model()
+# prob.check_partials(compact_print=True)
 
 prob.model.list_outputs(prom_name=True)
+
+# print('tail_right_thrust_coeff',prob['tail_right_prop_group.rotor_group.thrust_coeff']/7.75)
+# print('tail_left_thrust_coeff',prob['tail_left_prop_group.rotor_group.thrust_coeff']/7.75)
+# print('wing_left_inner_thrust_coeff',prob['wing_left_inner_prop_group.rotor_group.thrust_coeff']/7.75)
+# print('wing_left_outer_thrust_coeff',prob['rotor_group.thrust_coeff']/7.75)
+# print('wing_right_inner_thrust_coeff',prob['wing_right_inner_prop_group.rotor_group.thrust_coeff']/7.75)
+# print('wing_right_outer_thrust_coeff',prob['wing_right_outer_prop_group.rotor_group.thrust_coeff']/7.75)
+
+# print('average_wing_axial_int_fac',prob['average_wing_axial_int_fac'])
