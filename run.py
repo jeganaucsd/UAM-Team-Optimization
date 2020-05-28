@@ -49,15 +49,16 @@ from UAM_team_optimization.components.Geometry.geometry_comp import GeometryComp
 # Import components from PROPULSION:
 from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_left_outer_prop_thrust_coeff, wing_left_inner_prop_thrust_coeff,tail_left_prop_thrust_coeff
 from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_right_outer_prop_thrust_coeff, wing_right_inner_prop_thrust_coeff,tail_right_prop_thrust_coeff
+
 # Import components from WEIGHTS:
 from UAM_team_optimization.components.Weights.wingweight_comp import WingWeightComp
-# from UAM_team_optimization.components.Weights.tailweight_comp import TailWeightComp
+from UAM_team_optimization.components.Weights.tailweight_comp import TailWeightComp
 from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.emptyweight_comp import EmptyWeightComp
 from UAM_team_optimization.components.Weights.grossweight_comp import GrossWeightComp
 from UAM_team_optimization.components.Weights.xcg_comp import XCGComp
 from UAM_team_optimization.components.Weights.xnp_comp import XNPComp
-# from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
+from UAM_team_optimization.components.Weights.staticmargin_comp import StaticMarginComp
 
 # Import components from ECONOMICS:
 from UAM_team_optimization.components.Economics.enghr_comp import EngHrComp
@@ -95,6 +96,7 @@ comp.add_output('wing_CD0', val = 0.015)
 comp.add_output('wing_e', val = 0.85)
 comp.add_output('wing_AR', val = 8 )
 comp.add_output('wing_area', val = 25 )
+comp.add_output('wing_tc', val = 0.8 ) # from jake: to verify
 
 # Tail inital values:
 comp.add_output('tail_alpha', val = 0)
@@ -104,6 +106,7 @@ comp.add_output('tail_CD0', val = 0.015)
 comp.add_output('tail_e', val = 0.85)
 comp.add_output('tail_AR', val = 8 )
 comp.add_output('tail_area', val = 4 )
+comp.add_output('tail_tc', val = 0.8 ) # from jake: to verify
 
 # Propeller inital values:
 comp.add_output('wing_prop_inner_rad',val = 0.8)
@@ -193,8 +196,8 @@ comp = WingWeightComp(rho=1.2)
 model.add_subsystem('wingweight_comp', comp, promotes=['*'])
 
 # Tail Weight [N]
-# comp = TailWeightComp(rho=1.2)
-# model.add_subsystem('tailweight_comp', comp, promotes=['*'])
+comp = TailWeightComp(rho=1.2)
+model.add_subsystem('tailweight_comp', comp, promotes=['*'])
 
 # Gross Weight [N]
 comp = GrossWeightComp(rho=1.2)
@@ -205,8 +208,16 @@ comp = EmptyWeightComp(rho=1.2)
 model.add_subsystem('emptyweight_comp', comp, promotes=['*'])
 
 # CG Location from nose [m]
-# comp = XCGComp()
-# model.add_subsystem('xcg_comp', comp, promotes=['*'])
+comp = XCGComp()
+model.add_subsystem('xcg_comp', comp, promotes=['*'])
+
+# NP Location from nose [m]
+comp = XNPComp()
+model.add_subsystem('xnp_comp', comp, promotes=['*'])
+
+# Static margin [%]
+comp = StaticMarginComp()
+model.add_subsystem('staticmargin_comp', comp, promotes=['*'])
 
 # Cost, engineering hours:
 comp=EngHrComp()

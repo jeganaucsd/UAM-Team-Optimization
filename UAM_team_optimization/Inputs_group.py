@@ -12,8 +12,8 @@ class InputsGroup(Group):
 
     def setup(self):
         shape = self.options['shape']
-        
-        # 
+
+        #
         comp = IndepVarComp()
 
 # Initial values for optimization:
@@ -73,5 +73,3 @@ class InputsGroup(Group):
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
         # comp = GeometryComp()
         # self.add_subsystem('geometry_comp', comp, promotes = ['*'])
-
-
