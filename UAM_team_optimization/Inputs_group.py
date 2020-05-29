@@ -12,8 +12,8 @@ class InputsGroup(Group):
 
     def setup(self):
         shape = self.options['shape']
-        
-        # 
+
+        #
         comp = IndepVarComp()
 
 # Initial values for optimization:
@@ -31,6 +31,7 @@ class InputsGroup(Group):
         comp.add_output('wing_e', val = 0.85)
         comp.add_output('wing_AR', val = 8 )
         comp.add_output('wing_area', val = 25 )
+        comp.add_output('wing_tc', val = 0.12 )
 
 # Tail inital values:
         comp.add_output('tail_alpha', val = 0)
@@ -40,6 +41,7 @@ class InputsGroup(Group):
         comp.add_output('tail_e', val = 0.85)
         comp.add_output('tail_AR', val = 8 )
         comp.add_output('tail_area', val = 4 )
+        comp.add_output('tail_tc', val = 0.12 )
 
 # Propeller inital values:
         comp.add_output('wing_prop_inner_rad',val = 0.8)
@@ -61,6 +63,8 @@ class InputsGroup(Group):
         comp.add_output('x_tailc4', val=2.)
         comp.add_output('x_else', val=3.)
         comp.add_output('x_pax', val=4.)
+        comp.add_output('MAC', val=1.)
+        comp.add_output('w_tail')
 
 # Economics initial values:
         comp.add_output('EngRt' , val= 40)
@@ -73,5 +77,3 @@ class InputsGroup(Group):
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
         # comp = GeometryComp()
         # self.add_subsystem('geometry_comp', comp, promotes = ['*'])
-
-
