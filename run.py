@@ -96,7 +96,7 @@ comp.add_output('wing_CD0', val = 0.015)
 comp.add_output('wing_e', val = 0.85)
 comp.add_output('wing_AR', val = 8 )
 comp.add_output('wing_area', val = 25 )
-comp.add_output('wing_tc', val = 0.8 ) # from jake: to verify
+comp.add_output('wing_tc', val = 0.12 ) # from jake: to verify
 
 # Tail inital values:
 comp.add_output('tail_alpha', val = 0)
@@ -106,7 +106,7 @@ comp.add_output('tail_CD0', val = 0.015)
 comp.add_output('tail_e', val = 0.85)
 comp.add_output('tail_AR', val = 8 )
 comp.add_output('tail_area', val = 4 )
-comp.add_output('tail_tc', val = 0.8 ) # from jake: to verify
+comp.add_output('tail_tc', val = 0.12 ) # from jake: to verify
 
 # Propeller inital values:
 comp.add_output('wing_prop_inner_rad',val = 0.8)
@@ -124,10 +124,11 @@ comp.add_output('w_design', val=26700.)
 comp.add_output('w_pax', val=900.)
 comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
 comp.add_output('load_factor', val=3.8)
-comp.add_output('x_wingc4', val=1.)
-comp.add_output('x_tailc4', val=2.)
+comp.add_output('x_wingc4', val=1.) # from jake: needs adjusting
+comp.add_output('x_tailc4', val=2.) # likely design variable
 comp.add_output('x_else', val=3.)
 comp.add_output('x_pax', val=4.)
+comp.add_output('MAC', val=1.)
 
 # Economics initial values:
 comp.add_output('EngRt' , val= 40)
