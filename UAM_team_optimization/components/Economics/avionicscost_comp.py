@@ -17,10 +17,10 @@ class AvionicsCostComp(ExplicitComponent):
         
         q = inputs['q']
 
-        outputs['AvionicsCost'] = 120000 * q
+        outputs['AvionicsCost'] = 60000 * q
 
     def compute_partials(self, inputs, partials):
        
         q = inputs['q']
 
-        partials['AvionicsCost', 'q'] = 120000
+        partials['AvionicsCost', 'q'] = 60000 
