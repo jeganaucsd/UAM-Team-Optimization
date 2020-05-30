@@ -2,7 +2,7 @@ import numpy as np
 
 from lsdo_utils.api import OptionsDictionary
 
-from UAM_team_optimization.aero_group import AeroGroup
+from UAM_team_optimization.Aero_group import AeroGroup
 
 class Aero(OptionsDictionary):
 

@@ -6,7 +6,7 @@ from lsdo_aircraft.api import SimpleRotor, SimpleMotor, Powertrain, PowertrainGr
 
 import numpy as np
 from openmdao.utils.options_dictionary import OptionsDictionary
-from UAM_team_optimization.aero_group import AeroGroup
+from UAM_team_optimization.Aero_group import AeroGroup
 from UAM_team_optimization.Aero import Aero
 from UAM_team_optimization.Geometry_group import GeometryGroup
 from UAM_team_optimization.Inputs_group import InputsGroup
@@ -79,6 +79,7 @@ prob.model.connect('tail_left_prop_group.rotor_group.thrust_coeff','tail_left_th
 
 prob.model.connect('atmosphere_group.density','density')
 prob.model.connect('atmosphere_group.dynamic_viscosity','dynamic_viscosity')
+prob.model.connect('atmosphere_group.sonic_speed','sonic_speed')
 
 prob.model.connect('tail_left_prop_group.rotor_group.thrust','tail_left_thrust')
 prob.model.connect('tail_right_prop_group.rotor_group.thrust','tail_right_thrust')

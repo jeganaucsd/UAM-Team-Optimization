@@ -4,7 +4,7 @@ from openmdao.utils.options_dictionary import OptionsDictionary
 from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
 from lsdo_aircraft.api import SimpleRotor, SimpleMotor
 from UAM_team_optimization.Aero import Aero
-from UAM_team_optimization.aero_group import AeroGroup
+from UAM_team_optimization.Aero_group import AeroGroup
 from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
 
 #from lsdo_aircraft.preprocess.preprocess_group import PreprocessGroup
