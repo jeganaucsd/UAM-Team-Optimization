@@ -1,7 +1,12 @@
 from openmdao.api import IndepVarComp, Group
 
+from openmdao.utils.options_dictionary import OptionsDictionary
 from lsdo_aircraft.api import Preprocess, Atmosphere, Powertrain, PowertrainGroup, AtmosphereGroup
 from lsdo_aircraft.api import SimpleRotor, SimpleMotor
+from UAM_team_optimization.Aero import Aero
+from UAM_team_optimization.aero_group import AeroGroup
+from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
+
 #from lsdo_aircraft.preprocess.preprocess_group import PreprocessGroup
 # from lsdo_aircraft.api import SimpleRotorGroup
 from openmdao.api import ExplicitComponent
@@ -17,6 +22,7 @@ preprocess_name = 'preprocess'
 atmosphere_name = 'atmosphere'
 simple_motor_name = 'motor'
 simple_rotor_name = 'rotor'
+
 
 
 powertrain.add_module(Preprocess(
@@ -99,6 +105,21 @@ class PropulsionGroup(Group):
         )
         self.add_subsystem('tail_right_prop_group', tail_right_prop_group)
 
+        comp = LinearCombinationComp(
+            shape = shape,
+            out_name = 'total_thrust',
+            constant = 0.,
+            coeffs_dict=dict(
+                tail_right_thrust =1.,
+                tail_left_thrust =1.,
+                wing_left_inner_thrust = 1.,
+                wing_left_outer_thrust = 1.,
+                wing_right_inner_thrust = 1.,
+                wing_right_outer_thrust = 1.,
+            )
+        )
+        self.add_subsystem('total_thrust_comp',comp,promotes=['*'])
 
+        # comp = TestCLWingComp()
         # comp = GeometryComp()
         # self.add_subsystem('geometry_comp', comp, promotes = ['*'])

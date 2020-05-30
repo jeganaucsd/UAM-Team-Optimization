@@ -1,5 +1,9 @@
 from openmdao.api import ExplicitComponent
-from UAM_team_optimization.Propulsion_group import PropulsionGroup
+# from UAM_team_optimization.Propulsion_group import PropulsionGroup
+# from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_left_outer_prop_thrust_coeff, wing_left_inner_prop_thrust_coeff,tail_left_prop_thrust_coeff
+# from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_right_outer_prop_thrust_coeff, wing_right_inner_prop_thrust_coeff,tail_right_prop_thrust_coeff
+
+
 import numpy as np
 
 class AxialIntComp(ExplicitComponent):
@@ -39,12 +43,12 @@ class AxialIntComp(ExplicitComponent):
         # average_wing_axial_int_fac = inputs[['wing_right_outer_thrust_coeff'],['wing_right_inner_thrust_coeff'],['wing_left_outer_thrust_coeff'],['wing_left_inner_thrust_coeff']]
         # average_tail_axial_int_fac = inputs['tail_right_axial_int_fac','tail_left_axial_int_fac']
 
-        outputs['tail_right_axial_int_fac'] = (-1 + np.sqrt(1 + tail_right_thrust_coeff**2))/2
-        outputs['tail_left_axial_int_fac'] = (-1 + np.sqrt(1 + tail_left_thrust_coeff**2))/2
-        outputs['wing_right_outer_axial_int_fac'] = (-1 + np.sqrt(1 + wing_right_outer_thrust_coeff**2))/2
-        outputs['wing_right_inner_axial_int_fac'] = (-1 + np.sqrt(1 + wing_right_inner_thrust_coeff**2))/2
-        outputs['wing_left_outer_axial_int_fac'] = (-1 + np.sqrt(1 + wing_left_outer_thrust_coeff**2))/2
-        outputs['wing_left_inner_axial_int_fac'] = (-1 + np.sqrt(1 + wing_left_inner_thrust_coeff**2))/2
+        outputs['tail_right_axial_int_fac'] = (-1 + np.sqrt(1 + (tail_right_thrust_coeff/7.75)**2))/2
+        outputs['tail_left_axial_int_fac'] = (-1 + np.sqrt(1 + (tail_left_thrust_coeff/7.75)**2))/2
+        outputs['wing_right_outer_axial_int_fac'] = (-1 + np.sqrt(1 + (wing_right_outer_thrust_coeff/7.75)**2))/2
+        outputs['wing_right_inner_axial_int_fac'] = (-1 + np.sqrt(1 + (wing_right_inner_thrust_coeff/7.75)**2))/2
+        outputs['wing_left_outer_axial_int_fac'] = (-1 + np.sqrt(1 + (wing_left_outer_thrust_coeff/7.75)**2))/2
+        outputs['wing_left_inner_axial_int_fac'] = (-1 + np.sqrt(1 + (wing_left_inner_thrust_coeff/7.75)**2))/2
         
         # outputs['average_wing_axial_int_fac'] = ((-1 + np.sqrt(1 + wing_right_outer_thrust_coeff**2))/2 + (-1 + np.sqrt(1 + wing_right_inner_thrust_coeff**2))/2 + (-1 + np.sqrt(1 + wing_left_outer_thrust_coeff**2))/2 + (-1 + np.sqrt(1 + wing_left_inner_thrust_coeff**2))/2)/4
 
