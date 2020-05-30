@@ -97,7 +97,7 @@ class AeroGroup(Group):
 
         comp = PowerCombinationComp(
             shape = shape,
-            out_name = 'mach_number'
+            out_name = 'mach_number',
             coeff = 1.,
             powers_dict=dict(
                 v_inf = 1.,

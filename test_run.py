@@ -79,6 +79,7 @@ prob.model.connect('tail_left_prop_group.rotor_group.thrust_coeff','tail_left_th
 
 prob.model.connect('atmosphere_group.density','density')
 prob.model.connect('atmosphere_group.dynamic_viscosity','dynamic_viscosity')
+prob.model.connect('atmosphere_group.sonic_speed','sonic_speed')
 
 prob.model.connect('tail_left_prop_group.rotor_group.thrust','tail_left_thrust')
 prob.model.connect('tail_right_prop_group.rotor_group.thrust','tail_right_thrust')
