@@ -118,6 +118,12 @@ class InputsGroup(Group):
         comp.add_output('EnergyCost' , val= .12)
         comp.add_output('flthr_yr' , val= 2000)
         comp.add_output('years' , val= 5)
+        comp.add_output('t_tol' , val= .1)
+        comp.add_output('distance' , val= 100)
+        comp.add_output('v_drive' , val= 5)
+        comp.add_output('savings' , val= .6985)
+        comp.add_output('v_drive' , val= 31.2)
+
 
         comp.add_output('trip_length', 20000.)
         comp.add_output('hover_time', 100.)
