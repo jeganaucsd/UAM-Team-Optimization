@@ -18,7 +18,7 @@ class MotionEquationsGroup(Group):
             out_name = 'vertical_hover_equilibrium',
             constant = 0.,
             coeffs_dict = dict(
-                total_thrust = 1.,
+                hover_total_thrust = 1.,
                 GrossWeight = -1.,
             )
         )
@@ -40,7 +40,7 @@ class MotionEquationsGroup(Group):
             out_name = 'horizontal_cruise_equilibrium',
             constant = 0.,
             coeffs_dict = dict(
-                total_thrust = 1.,
+                cruise_total_thrust = 1.,
                 total_drag = -1.,
             )
         )
@@ -48,36 +48,36 @@ class MotionEquationsGroup(Group):
 
         comp = LinearPowerCombinationComp(
             shape = shape,
-            out_name = 'rolling_moment_equilibrium',
+            out_name = 'cruise_rolling_moment_equilibrium',
             terms_list=[
                 (0.2, dict(
-                    wing_right_inner_thrust = 1.,
+                    cruise_wing_right_inner_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (0.5, dict(
-                    wing_right_outer_thrust = 1.,
+                    cruise_wing_right_outer_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (0.5, dict(
-                    tail_right_thrust = 1.,
+                    cruise_tail_right_thrust = 1.,
                     tail_span = 1.,
                 )),
                 (-0.2, dict(
-                    wing_left_inner_thrust = 1.,
+                    cruise_wing_left_inner_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (-0.5, dict(
-                    wing_left_outer_thrust = 1.,
+                    cruise_wing_left_outer_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (-0.5, dict(
-                    tail_left_thrust = 1.,
+                    cruise_tail_left_thrust = 1.,
                     tail_span = 1.,
                 )),
             ],
             constant = 0.,          
         )
-        self.add_subsystem('rolling_moment_equilibrium_comp', comp, promotes = ['*'])
+        self.add_subsystem('cruise_rolling_moment_equilibrium_comp', comp, promotes = ['*'])
 
         comp = LinearCombinationComp(
             shape =shape,
