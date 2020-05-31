@@ -15,6 +15,7 @@ from UAM_team_optimization.Inputs_group import InputsGroup
 from UAM_team_optimization.Propulsion_group import PropulsionGroup
 from UAM_team_optimization.Weights_group import WeightsGroup
 from UAM_team_optimization.motion_equations_group import MotionEquationsGroup
+from UAM_team_optimization.energy_group import EnergyGroup
 from UAM_team_optimization.Econ_group import EconGroup
 
 # from Aero_group import AeroGroup
@@ -67,6 +68,11 @@ motion_equations_group = MotionEquationsGroup(
 )
 prob.model.add_subsystem('motion_equations_group',motion_equations_group,promotes=['*'])
 
+energy_group = EnergyGroup(
+    shape=my_shape,
+)
+prob.model.add_subsystem('energy_group',energy_group,promotes=['*'])
+
 economics_group = EconGroup(
     shape=my_shape,
 )
@@ -94,38 +100,53 @@ prob.model.connect('rotor_group.thrust','wing_left_outer_thrust')
 prob.model.connect('wing_right_inner_prop_group.rotor_group.thrust','wing_right_inner_thrust')
 prob.model.connect('wing_right_outer_prop_group.rotor_group.thrust','wing_right_outer_thrust')
 
+prob.model.connect('tail_left_prop_group.rotor_group.efficiency', 'tail_left_eff')
+prob.model.connect('tail_right_prop_group.rotor_group.efficiency', 'tail_right_eff')
+prob.model.connect('wing_left_inner_prop_group.rotor_group.efficiency', 'wing_left_inner_eff')
+prob.model.connect('rotor_group.efficiency', 'wing_left_outer_eff')
+prob.model.connect('wing_right_inner_prop_group.rotor_group.efficiency', 'wing_right_inner_eff')
+prob.model.connect('wing_right_outer_prop_group.rotor_group.efficiency', 'wing_right_outer_eff')
+
+prob.model.connect('tail_left_prop_group.motor_group.input_power', 'tail_left_power')
+prob.model.connect('tail_right_prop_group.motor_group.input_power', 'tail_right_power')
+prob.model.connect('wing_left_inner_prop_group.motor_group.input_power', 'wing_left_inner_power')
+prob.model.connect('motor_group.input_power', 'wing_left_outer_power')
+prob.model.connect('wing_right_inner_prop_group.motor_group.input_power', 'wing_right_inner_power')
+prob.model.connect('wing_right_outer_prop_group.motor_group.input_power', 'wing_right_outer_power')
+
+
 # prob.model.connect('wing_left_inner_thrust_coeff','tail_right_prop_group.rotor_group.thrust')#    'model.aero_group.axial_int_comp.wing_left_outer_axial_int_fac')
 
 prob.setup(check=True)
 prob['motor_group.mass'] = 69.
-prob['motor_group.angular_speed'] = 150.
+prob['motor_group.angular_speed'] = 75.
 prob['motor_group.normalized_torque'] = 0.5
-prob['preprocess_group.speed'] = 67. * 0.25
+prob['preprocess_group.speed'] = 67.
 
 prob['wing_left_inner_prop_group.motor_group.mass'] = 69.
-prob['wing_left_inner_prop_group.motor_group.angular_speed'] = 150.
+prob['wing_left_inner_prop_group.motor_group.angular_speed'] = 75.
 prob['wing_left_inner_prop_group.motor_group.normalized_torque'] = 0.5
-prob['wing_left_inner_prop_group.preprocess_group.speed'] = 67. * 0.25
+prob['wing_left_inner_prop_group.preprocess_group.speed'] = 67.
 
 prob['tail_left_prop_group.motor_group.mass'] = 69.
-prob['tail_left_prop_group.motor_group.angular_speed'] = 150.
+prob['tail_left_prop_group.motor_group.angular_speed'] = 75.
 prob['tail_left_prop_group.motor_group.normalized_torque'] = 0.5
-prob['tail_left_prop_group.preprocess_group.speed'] = 67. * 0.25
+prob['tail_left_prop_group.preprocess_group.speed'] = 67.
 
 prob['wing_right_inner_prop_group.motor_group.mass'] = 69.
-prob['wing_right_inner_prop_group.motor_group.angular_speed'] = 150.
+prob['wing_right_inner_prop_group.motor_group.angular_speed'] = 75.
 prob['wing_right_inner_prop_group.motor_group.normalized_torque'] = 0.5
-prob['wing_right_inner_prop_group.preprocess_group.speed'] = 67. * 0.25
+prob['wing_right_inner_prop_group.preprocess_group.speed'] = 67. 
 
 prob['wing_right_outer_prop_group.motor_group.mass'] = 69.
-prob['wing_right_outer_prop_group.motor_group.angular_speed'] = 150.
+prob['wing_right_outer_prop_group.motor_group.angular_speed'] = 75.
 prob['wing_right_outer_prop_group.motor_group.normalized_torque'] = 0.5
-prob['wing_right_outer_prop_group.preprocess_group.speed'] = 67. * 0.25
+prob['wing_right_outer_prop_group.preprocess_group.speed'] = 67. 
 
 prob['tail_right_prop_group.motor_group.mass'] = 69.
-prob['tail_right_prop_group.motor_group.angular_speed'] = 150.
+prob['tail_right_prop_group.motor_group.angular_speed'] = 75.
 prob['tail_right_prop_group.motor_group.normalized_torque'] = 0.5
-prob['tail_right_prop_group.preprocess_group.speed'] = 67. * 0.25
+prob['tail_right_prop_group.preprocess_group.speed'] = 67
 
 
 
