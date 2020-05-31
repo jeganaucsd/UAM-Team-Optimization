@@ -7,7 +7,7 @@ class AcComp(ExplicitComponent):
     def setup(self):
         self.add_input('LaborCost')
         self.add_input('StructCost')
-        self.add_input('q')
+        self.add_input('quantity')
                
         self.add_output('Ac')
 
@@ -16,7 +16,7 @@ class AcComp(ExplicitComponent):
         
         LaborCost = inputs['LaborCost']
         StructCost = inputs['StructCost']
-        q = inputs['q']
+        quantity = inputs['quantity']
 
 
-        outputs['Ac'] = (StructCost + LaborCost) / q
+        outputs['Ac'] = 1.1 * (StructCost + LaborCost) / quantity
