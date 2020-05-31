@@ -38,7 +38,7 @@ class InputsGroup(Group):
         comp.add_output('q' , val= 250)
 
 # Wing inital values:
-        comp.add_output('wing_alpha', val = 0.05)
+        comp.add_output('wing_alpha', val = 0.015)
         comp.add_output('wing_CLa', val = 2*np.pi)
         comp.add_output('wing_CL0', val = 0.2)
         comp.add_output('wing_CD0', val = 0.015)
@@ -49,7 +49,7 @@ class InputsGroup(Group):
         comp.add_output('nose_wing_c4', val = 2.1336)
 
 # Tail inital values:
-        comp.add_output('tail_alpha', val = 0.05)
+        comp.add_output('tail_alpha', val = 0.04)
         comp.add_output('tail_CLa', val = 2*np.pi)
         comp.add_output('tail_CL0', val = 0.2)
         comp.add_output('tail_CD0', val = 0.015)
@@ -112,6 +112,7 @@ class InputsGroup(Group):
         comp.add_output('kwhcost' , val= 137)
         comp.add_output('num_motor' , val= 6)
         comp.add_output('trip_length', 20000.)
+        comp.add_output('hover_time', 100.)
         
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
