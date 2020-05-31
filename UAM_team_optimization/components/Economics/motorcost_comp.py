@@ -27,3 +27,4 @@ class MotorCostComp(ExplicitComponent):
         quantity = inputs['quantity']
 
         partials['MotorCost', 'quantity'] = 40000 * num_motor
+        partials['MotorCost', 'num_motor'] = 40000 * quantity
