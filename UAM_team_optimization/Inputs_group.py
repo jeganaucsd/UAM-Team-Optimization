@@ -120,7 +120,6 @@ class InputsGroup(Group):
         comp.add_output('years' , val= 5)
         comp.add_output('t_tol' , val= .1)
         comp.add_output('distance' , val= 100)
-        comp.add_output('v_drive' , val= 5)
         comp.add_output('savings' , val= .6985)
         comp.add_output('v_drive' , val= 31.2)
 
