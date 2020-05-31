@@ -34,16 +34,16 @@ class InputsGroup(Group):
 # Adding Input variables which are the outputs of input_comp
 
 # Atmospheric inital values:
-        comp.add_output('v_inf' , val= 60)
+        comp.add_output('v_inf' , val= 67)
         comp.add_output('q' , val= 250)
 
 # Wing inital values:
-        comp.add_output('wing_alpha', val = 0.04)
+        comp.add_output('wing_alpha', val = 0.05)
         comp.add_output('wing_CLa', val = 2*np.pi)
         comp.add_output('wing_CL0', val = 0.2)
         comp.add_output('wing_CD0', val = 0.015)
         comp.add_output('wing_e', val = 0.85)
-        comp.add_output('wing_AR', val = 8 )
+        comp.add_output('wing_AR', val = 12 )
         comp.add_output('wing_area', val = 25 )
         comp.add_output('wing_tc', val = 0.12 )
         comp.add_output('nose_wing_c4', val = 2.1336)
@@ -54,7 +54,7 @@ class InputsGroup(Group):
         comp.add_output('tail_CL0', val = 0.2)
         comp.add_output('tail_CD0', val = 0.015)
         comp.add_output('tail_e', val = 0.85)
-        comp.add_output('tail_AR', val = 8 )
+        comp.add_output('tail_AR', val = 12 )
         comp.add_output('tail_area', val = 4 )
         comp.add_output('tail_tc', val = 0.12)
         comp.add_output('nose_tail_c4', val = 6.5292)
@@ -64,8 +64,8 @@ class InputsGroup(Group):
 # Fuselage initial values:
         comp.add_output('fuselage_max_crossec_area', val = 7.22)
         comp.add_output('fuselage_length', val = 6.4)
-        comp.add_output('fuselage_f', val = 0.886426)
-        comp.add_output('fuselage_form_factor', val = 87)
+        comp.add_output('fuselage_f', val = 2.11)
+        comp.add_output('fuselage_form_factor', val = 7.3847)
         comp.add_output('fuselage_wetted_area', val = 52.05)
 
 # Vertical tail initial values:
@@ -101,6 +101,7 @@ class InputsGroup(Group):
 # Battery/Energy Initial Values:
         comp.add_output('battery_mass', val = 500.)
         comp.add_output('batter_energy_density', val = 200.)
+        comp.add_output('range', val = 140.)
 
 # Economics initial values:
         comp.add_output('EngRt' , val= 40)
@@ -110,6 +111,8 @@ class InputsGroup(Group):
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
         comp.add_output('num_motor' , val= 6)
+        comp.add_output('trip_length', 20000.)
+        
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
 
