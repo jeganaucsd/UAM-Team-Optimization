@@ -17,7 +17,7 @@ class MfgCostComp(ExplicitComponent):
         
         EmptyWeight = inputs['EmptyWeight']
         v_inf = inputs['v_inf']
-        q = inputs['quantity']
+        quantity = inputs['quantity']
 
         outputs['MfgCost'] = 1.1236 * 31.2 * EmptyWeight**.921 * v_inf**.621 * quantity**.799
 
