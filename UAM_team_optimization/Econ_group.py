@@ -15,6 +15,7 @@ from UAM_team_optimization.components.Economics.qchr_comp import QcHrComp
 from UAM_team_optimization.components.Economics.structcost_comp import StructCostComp
 from UAM_team_optimization.components.Economics.toolhr_comp import ToolHrComp
 from UAM_team_optimization.components.Economics.fare_comp import FareComp
+from UAM_team_optimization.components.Economics.profit_comp import ProfitComp
 
 
 class EconGroup(Group):
@@ -54,3 +55,5 @@ class EconGroup(Group):
         self.add_subsystem('toolhr_comp', comp, promotes = ['*'])
         comp = FareComp()
         self.add_subsystem('fare_comp', comp, promotes = ['*'])
+        comp = ProfitComp()
+        self.add_subsystem('profit_comp', comp, promotes = ['*'])

@@ -113,6 +113,9 @@ class InputsGroup(Group):
         comp.add_output('num_motor' , val= 12)
         comp.add_output('quantity' , val= 250)
         comp.add_output('Price_km' , val= 2)
+        comp.add_output('cost_km' , val= 1.25)
+        comp.add_output('EnergyCost' , val= .12)
+        comp.add_output('flthr_yr' , val= 2000)
         
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
