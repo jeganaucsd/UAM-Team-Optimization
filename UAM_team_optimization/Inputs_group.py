@@ -111,10 +111,8 @@ class InputsGroup(Group):
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
         comp.add_output('num_motor' , val= 6)
-        comp.add_output('quantity' , val= 250)
-        comp.add_output('Price_km' , val= 2)
-        # comp.add_output('trip_length', 20000.)
-        # comp.add_output('hover_time', 100.)
+        comp.add_output('trip_length', 20000.)
+        comp.add_output('hover_time', 100.)
         
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
