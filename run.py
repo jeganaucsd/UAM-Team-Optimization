@@ -73,6 +73,7 @@ from UAM_team_optimization.components.Economics.motorcost_comp import MotorCostC
 from UAM_team_optimization.components.Economics.avionicscost_comp import AvionicsCostComp
 from UAM_team_optimization.components.Economics.structcost_comp import StructCostComp
 from UAM_team_optimization.components.Economics.ac_comp import AcComp
+from UAM_team_optimization.components.Economics.fare_comp import FareComp
 
 
 prob = Problem()
@@ -259,6 +260,10 @@ model.add_subsystem('structcost_comp', comp, promotes=['*'])
 # Cost:
 comp=AcComp()
 model.add_subsystem('ac_comp', comp, promotes=['*'])
+
+# Fare:
+comp=FareComp()
+model.add_subsystem('fare_comp', comp, promotes=['*'])
 
 
 prob.model = model
