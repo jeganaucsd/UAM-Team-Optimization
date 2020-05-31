@@ -197,48 +197,60 @@ class EnergyGroup(Group):
 
         comp = PowerCombinationComp(
             shape = shape,
-            out_name = 'tips_per_charge',
+            out_name = 'trips_per_charge',
             powers_dict=dict(
                 total_avail_energy = 1.,
                 energy_expenditure_per_trip = -1.,
             )
         )
-        self.add_subsystem('trips_per_charge', comp, promotes=['*'])
-        # comp = PowerCombinationComp(
-        #     shape = shape,
-        #     out_name = 'design_range_energy_expenditure',
-        #     coeff = 1.,
-        #     powers_dict=dict(
-        #         trip_length = 1.,
-        #         GrossWeight = 1.,
-        #         cruise_average_prop_efficiency = -1.,
-        #         lift_drag_ratio = -1.,
-        #     )
-        # )
-        # self.add_subsystem('design_range_energy_expenditure_comp', comp, promotes = ['*'])
+        self.add_subsystem('trips_per_charge_comp', comp, promotes=['*'])
+       
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'aircraft_range',
+            coeff = 1/1000,
+            powers_dict = dict(
+                trip_length = 1.,
+                trips_per_charge = 1.,
+            )
+        )
+        self.add_subsystem('aircraft_range_comp', comp, promotes=['*'])
 
-        # comp = LinearCombinationComp(
-        #     shape = shape,
-        #     out_name = 'energy_remaining_1',
-        #     constant = 0.,
-        #     coeffs_dict=dict(
-        #         total_avail_energy =1.,
-        #         design_range_energy_expenditure = -1.,
-        #     )
-        # )
-        # self.add_subsystem('energy_remaining_1_comp', comp, promotes=['*'])
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'design_range_energy_expenditure',
+            coeff = 1.,
+            powers_dict=dict(
+                trip_length = 1.,
+                GrossWeight = 1.,
+                cruise_average_prop_efficiency = -1.,
+                lift_drag_ratio = -1.,
+            )
+        )
+        self.add_subsystem('design_range_energy_expenditure_comp', comp, promotes = ['*'])
 
-        # comp = PowerCombinationComp(
-        #     shape = shape,
-        #     out_name = 'Range',
-        #     coeff = 1.,
-        #     powers_dict=dict(
-        #         average_prop_efficiency = 1.,
-        #         batter_energy_density = 1.,
-        #         lift_drag_ratio = 1.,
-        #         battery_mass = 1.,
-        #         GrossWeight = -1.,
-        #     )
-        # )
-        # self.add_subsystem('Range_comp', comp, promotes = ['*'])
+        comp = LinearCombinationComp(
+            shape = shape,
+            out_name = 'energy_remaining_1',
+            constant = 0.,
+            coeffs_dict=dict(
+                total_avail_energy =1.,
+                design_range_energy_expenditure = -1.,
+            )
+        )
+        self.add_subsystem('energy_remaining_1_comp', comp, promotes=['*'])
+
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'Electric_Range_Equation',
+            coeff = 1.,
+            powers_dict=dict(
+                cruise_average_prop_efficiency = 1.,
+                batter_energy_density = 1.,
+                lift_drag_ratio = 1.,
+                battery_mass = 1.,
+                GrossWeight = -1.,
+            )
+        )
+        self.add_subsystem('Electric_Range_Equation_comp', comp, promotes = ['*'])
 

@@ -123,32 +123,32 @@ prob.model.connect('hover_wing_right_outer_prop_group.motor_group.input_power', 
 prob.setup(check=True)
 # ---- ---- ---- ---- CRUISE SETUP ---- ---- ---- ---- #
 prob['motor_group.mass'] = 69.
-prob['motor_group.angular_speed'] = 30.
+prob['motor_group.angular_speed'] = 25.
 prob['motor_group.normalized_torque'] = 0.4
 prob['preprocess_group.speed'] = 67.
 
 prob['wing_left_inner_prop_group.motor_group.mass'] = 69.
-prob['wing_left_inner_prop_group.motor_group.angular_speed'] = 30.
+prob['wing_left_inner_prop_group.motor_group.angular_speed'] = 25.
 prob['wing_left_inner_prop_group.motor_group.normalized_torque'] = 0.4
 prob['wing_left_inner_prop_group.preprocess_group.speed'] = 67.
 
 prob['tail_left_prop_group.motor_group.mass'] = 69.
-prob['tail_left_prop_group.motor_group.angular_speed'] = 30.
+prob['tail_left_prop_group.motor_group.angular_speed'] = 25.
 prob['tail_left_prop_group.motor_group.normalized_torque'] = 0.4
 prob['tail_left_prop_group.preprocess_group.speed'] = 67.
 
 prob['wing_right_inner_prop_group.motor_group.mass'] = 69.
-prob['wing_right_inner_prop_group.motor_group.angular_speed'] = 30.
+prob['wing_right_inner_prop_group.motor_group.angular_speed'] = 25.
 prob['wing_right_inner_prop_group.motor_group.normalized_torque'] = 0.4
 prob['wing_right_inner_prop_group.preprocess_group.speed'] = 67. 
 
 prob['wing_right_outer_prop_group.motor_group.mass'] = 69.
-prob['wing_right_outer_prop_group.motor_group.angular_speed'] = 30.
+prob['wing_right_outer_prop_group.motor_group.angular_speed'] = 25.
 prob['wing_right_outer_prop_group.motor_group.normalized_torque'] = 0.4
 prob['wing_right_outer_prop_group.preprocess_group.speed'] = 67. 
 
 prob['tail_right_prop_group.motor_group.mass'] = 69.
-prob['tail_right_prop_group.motor_group.angular_speed'] = 30.
+prob['tail_right_prop_group.motor_group.angular_speed'] = 25.
 prob['tail_right_prop_group.motor_group.normalized_torque'] = 0.4
 prob['tail_right_prop_group.preprocess_group.speed'] = 67
 

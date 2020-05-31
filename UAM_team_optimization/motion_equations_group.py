@@ -48,36 +48,36 @@ class MotionEquationsGroup(Group):
 
         comp = LinearPowerCombinationComp(
             shape = shape,
-            out_name = 'cruise_rolling_moment_equilibrium',
+            out_name = 'hover_rolling_moment_equilibrium',
             terms_list=[
                 (0.2, dict(
-                    cruise_wing_right_inner_thrust = 1.,
+                    hover_wing_right_inner_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (0.5, dict(
-                    cruise_wing_right_outer_thrust = 1.,
+                    hover_wing_right_outer_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (0.5, dict(
-                    cruise_tail_right_thrust = 1.,
+                    hover_tail_right_thrust = 1.,
                     tail_span = 1.,
                 )),
                 (-0.2, dict(
-                    cruise_wing_left_inner_thrust = 1.,
+                    hover_wing_left_inner_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (-0.5, dict(
-                    cruise_wing_left_outer_thrust = 1.,
+                    hover_wing_left_outer_thrust = 1.,
                     wing_span = 1.,
                 )),
                 (-0.5, dict(
-                    cruise_tail_left_thrust = 1.,
+                    hover_tail_left_thrust = 1.,
                     tail_span = 1.,
                 )),
             ],
             constant = 0.,          
         )
-        self.add_subsystem('cruise_rolling_moment_equilibrium_comp', comp, promotes = ['*'])
+        self.add_subsystem('hover_rolling_moment_equilibrium_comp', comp, promotes = ['*'])
 
         comp = LinearCombinationComp(
             shape =shape,
@@ -103,7 +103,7 @@ class MotionEquationsGroup(Group):
 
         comp = LinearPowerCombinationComp(
             shape = shape,
-            out_name = 'pitching_moment_equilibrium',
+            out_name = 'cruise_pitching_moment_equilibrium',
             terms_list=[
                 (1, dict(
                     wing_lift_moment_arm = 1.,
@@ -116,4 +116,37 @@ class MotionEquationsGroup(Group):
             ],
             constant = 0.,          
         )
-        self.add_subsystem('pitching_moment_equilibrium_comp', comp, promotes = ['*'])
+        self.add_subsystem('cruise_pitching_moment_equilibrium_comp', comp, promotes = ['*'])
+
+        comp = LinearPowerCombinationComp(
+            shape = shape,
+            out_name = 'hover_pitching_moment_equilibrium',
+            terms_list=[
+                (1, dict(
+                    wing_lift_moment_arm = 1.,
+                    hover_wing_right_inner_thrust = 1.,
+                )),
+                (1, dict(
+                    wing_lift_moment_arm = 1.,
+                    hover_wing_right_outer_thrust = 1.,
+                )),
+                (1, dict(
+                    wing_lift_moment_arm = 1.,
+                    hover_wing_left_inner_thrust = 1.,
+                )),
+                (1, dict(
+                    wing_lift_moment_arm = 1.,
+                    hover_wing_left_outer_thrust = 1.,
+                )),
+                (-1, dict(
+                    tail_lift_moment_arm = 1.,
+                    hover_tail_right_thrust = 1.,
+                )),
+                (-1, dict(
+                    tail_lift_moment_arm = 1.,
+                    hover_left_right_thrust = 1.,
+                )),
+            ],
+            constant = 0.,          
+        )
+        self.add_subsystem('hover_pitching_moment_equilibrium_comp', comp, promotes = ['*'])
