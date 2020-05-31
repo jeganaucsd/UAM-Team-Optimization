@@ -110,14 +110,9 @@ class InputsGroup(Group):
         comp.add_output('QcRt' , val= 37)
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
-<<<<<<< HEAD
         comp.add_output('num_motor' , val= 12)
         comp.add_output('quantity' , val= 250)
-=======
-        comp.add_output('num_motor' , val= 6)
-        comp.add_output('trip_length', 20000.)
         
->>>>>>> 8623324c1963ab7102a64cdcd29b94deb399d44a
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
 
