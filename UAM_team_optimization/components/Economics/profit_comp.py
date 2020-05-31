@@ -62,15 +62,14 @@ class ProfitComp(ExplicitComponent):
         Ac = inputs['Ac']
         Energy = inputs['Energy']
 
-
+        partials['Profit', 'flthr_yr'] = (years * quantity)* [ (Fare / ((distance/v_inf)+t_tol)) - (cost_km* distance/ ((distance/v_inf)+t_tol)) -(Energy*EnergyCost)]
         partials['Profit', 'Energy'] = -flthr_yr*EnergyCost*quantity*years
         partials['Profit', 'Fare'] = (flthr_yr*quantity*years)/((distance/v_inf)+t_tol)
         partials['Profit', 'v_inf'] = distance* (Fare-cost_km*distance)*(flthr_yr*quantity*years)/(t_tol*v_inf +distance)**2
         partials['Profit', 'distance'] = (flthr_yr*quantity*years*v_inf*(cost_km*t_tol*v_inf +Fare))/ (t_tol*v_inf +distance)**2
         partials['Profit', 'EnergyCost'] = -flthr_yr*Energy*quantity*years
-        partials['Profit', 't_tol'] = -(Fare- cost_km*distance)*(flthr_yr*quantity*years*(v_inf**2)/(t_tol*v_inf +distance)**2
-        partials['Profit', 'cost_km'] = -1* distance * flthr_yr * quantity *  years / ( (distance/v_inf) + t_tol)
-        partials['Profit', 'quantity'] = flthr_yr*years* [] (Fare / ((distance/v_inf)+t_tol)) - (cost_km* distance/ ((distance/v_inf)+t_tol)) -(Energy*EnergyCost)] - (Ac)
-        partials['Profit', 'flthr_yr'] = (years * quantity)* [ (Fare / ((distance/v_inf)+t_tol)) - (cost_km* distance/ ((distance/v_inf)+t_tol)) -(Energy*EnergyCost)]
+        partials['Profit', 't_tol'] = -(Fare- cost_km*distance)*(flthr_yr*quantity*years*(v_inf**2)/(t_tol*v_inf +distance)**2 
         partials['Profit', 'years'] = (quantity*flthr_yr)* [ (Fare / ((distance/v_inf)+t_tol)) - (cost_km* distance/ ((distance/v_inf)+t_tol)) -(Energy*EnergyCost)]
         partials['Profit', 'Ac'] = -quantity
+        partials['Profit', 'cost_km'] = - (distance * flthr_yr * quantity *  years ) / ( (distance/v_inf) + (t_tol))   
+        partials['Profit', 'quantity'] = flthr_yr * years* [(Fare / ((distance/v_inf)+t_tol)) - (cost_km* distance/ ((distance/v_inf)+t_tol)) -(Energy*EnergyCost)] - Ac
