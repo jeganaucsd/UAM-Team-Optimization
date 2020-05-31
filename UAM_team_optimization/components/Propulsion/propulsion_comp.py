@@ -103,8 +103,8 @@ prop_prob.model.add_subsystem('tail_right_prop_group', tail_right_prop_group)
 prop_prob.setup(check=True)
 
 prop_prob['motor_group.mass'] = 120.
-prop_prob['motor_group.angular_speed'] = 120.
-prop_prob['motor_group.normalized_torque'] = 0.6
+prop_prob['motor_group.angular_speed'] = 100.
+prop_prob['motor_group.normalized_torque'] = 0.5
 prop_prob['preprocess_group.speed'] = 67. * 0.25
 
 prop_prob['wing_left_inner_prop_group.motor_group.mass'] = 120.
@@ -112,8 +112,8 @@ prop_prob['wing_left_inner_prop_group.motor_group.angular_speed'] = 100.
 prop_prob['wing_left_inner_prop_group.motor_group.normalized_torque'] = 0.5
 prop_prob['wing_left_inner_prop_group.preprocess_group.speed'] = 67. * 0.25
 
-prop_prob['tail_left_prop_group.motor_group.mass'] = 100.
-prop_prob['tail_left_prop_group.motor_group.angular_speed'] = 50.
+prop_prob['tail_left_prop_group.motor_group.mass'] = 120.
+prop_prob['tail_left_prop_group.motor_group.angular_speed'] = 100.
 prop_prob['tail_left_prop_group.motor_group.normalized_torque'] = 0.5
 prop_prob['tail_left_prop_group.preprocess_group.speed'] = 67. * 0.25
 
@@ -127,8 +127,8 @@ prop_prob['wing_right_outer_prop_group.motor_group.angular_speed'] = 100.
 prop_prob['wing_right_outer_prop_group.motor_group.normalized_torque'] = 0.5
 prop_prob['wing_right_outer_prop_group.preprocess_group.speed'] = 67. * 0.25
 
-prop_prob['tail_right_prop_group.motor_group.mass'] = 100.
-prop_prob['tail_right_prop_group.motor_group.angular_speed'] = 50.
+prop_prob['tail_right_prop_group.motor_group.mass'] = 120.
+prop_prob['tail_right_prop_group.motor_group.angular_speed'] = 100.
 prop_prob['tail_right_prop_group.motor_group.normalized_torque'] = 0.5
 prop_prob['tail_right_prop_group.preprocess_group.speed'] = 67. * 0.25
 
