@@ -110,6 +110,7 @@ class InputsGroup(Group):
         comp.add_output('QcRt' , val= 37)
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
+
         comp.add_output('num_motor' , val= 6)
         comp.add_output('quantity' , val= 250)
         comp.add_output('Price_km' , val= 2)
