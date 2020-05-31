@@ -7,10 +7,10 @@ class BatteryCostComp(ExplicitComponent):
     def setup(self):
         self.add_input('kwh')
         self.add_input('kwhcost')
-        self.add_input('q')
+        self.add_input('quantity')
         self.add_output('BatteryCost')
 
-        self.declare_partials('BatteryCost', 'q')
+        self.declare_partials('BatteryCost', 'quantity')
 
 
         
@@ -18,7 +18,7 @@ class BatteryCostComp(ExplicitComponent):
         
         kwh = inputs['kwh']
         kwhcost = inputs['kwhcost']
-        q = inputs['q']
+        quantity = inputs['quantity']
 
         outputs['BatteryCost'] = kwh * kwhcost * q
 
@@ -26,6 +26,6 @@ class BatteryCostComp(ExplicitComponent):
        
         kwh = inputs['kwh']
         kwhcost = inputs['kwhcost']
-        q = inputs['q']
+        quantity = inputs['quantity']
 
-        partials['BatteryCost', 'q'] = kwh * kwhcost
+        partials['BatteryCost', 'quantity'] = kwh * kwhcost

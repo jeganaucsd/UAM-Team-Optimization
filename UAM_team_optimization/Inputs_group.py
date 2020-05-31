@@ -70,6 +70,7 @@ class InputsGroup(Group):
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
         comp.add_output('num_motor' , val= 12)
+        comp.add_output('quantity' , val= 250)
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
         # comp = GeometryComp()
         # self.add_subsystem('geometry_comp', comp, promotes = ['*'])
