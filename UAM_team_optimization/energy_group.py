@@ -34,57 +34,111 @@ class EnergyGroup(Group):
 
         comp = LinearPowerCombinationComp(
             shape = shape,
-            out_name = 'average_prop_efficiency',
+            out_name = 'cruise_average_prop_efficiency',
             terms_list=[
                 (1/6, dict(
-                    tail_right_eff = 1.,
+                    cruise_tail_right_eff = 1.,
                 )),
                 (1/6, dict(
-                    tail_left_eff = 1.,
+                    cruise_tail_left_eff = 1.,
                 )),
                 (1/6, dict(
-                    wing_right_outer_eff = 1.,
+                    cruise_wing_right_outer_eff = 1.,
                 )),
                 (1/6, dict(
-                    wing_right_inner_eff = 1.,
+                    cruise_wing_right_inner_eff = 1.,
                 )),
                 (1/6, dict(
-                    wing_left_outer_eff = 1.,
+                    cruise_wing_left_outer_eff = 1.,
                 )),
                 (1/6, dict(
-                    wing_left_inner_eff = 1.,
+                    cruise_wing_left_inner_eff = 1.,
                 )),
             ],
             constant = 0.,          
         )
-        self.add_subsystem('average_prop_efficiency_comp', comp, promotes = ['*'])
+        self.add_subsystem('cruise_average_prop_efficiency_comp', comp, promotes = ['*'])
 
         comp = LinearPowerCombinationComp(
             shape = shape,
-            out_name = 'total_power',
+            out_name = 'hover_average_prop_efficiency',
             terms_list=[
-                (1, dict(
-                    tail_right_power = 1.,
+                (1/6, dict(
+                    hover_tail_right_eff = 1.,
                 )),
-                (1, dict(
-                    tail_left_power = 1.,
+                (1/6, dict(
+                    hover_tail_left_eff = 1.,
                 )),
-                (1, dict(
-                    wing_right_outer_power = 1.,
+                (1/6, dict(
+                    hover_wing_right_outer_eff = 1.,
                 )),
-                (1, dict(
-                    wing_right_inner_power = 1.,
+                (1/6, dict(
+                    hover_wing_right_inner_eff = 1.,
                 )),
-                (1, dict(
-                    wing_left_outer_power = 1.,
+                (1/6, dict(
+                    hover_wing_left_outer_eff = 1.,
                 )),
-                (1, dict(
-                    wing_left_inner_power = 1.,
+                (1/6, dict(
+                    hover_wing_left_inner_eff = 1.,
                 )),
             ],
             constant = 0.,          
         )
-        self.add_subsystem('total_power_comp', comp, promotes = ['*']) 
+        self.add_subsystem('hover_average_prop_efficiency_comp', comp, promotes = ['*'])
+
+        comp = LinearPowerCombinationComp(
+            shape = shape,
+            out_name = 'cruise_total_power',
+            terms_list=[
+                (1, dict(
+                    cruise_tail_right_power = 1.,
+                )),
+                (1, dict(
+                    cruise_tail_left_power = 1.,
+                )),
+                (1, dict(
+                    cruise_wing_right_outer_power = 1.,
+                )),
+                (1, dict(
+                    cruise_wing_right_inner_power = 1.,
+                )),
+                (1, dict(
+                    cruise_wing_left_outer_power = 1.,
+                )),
+                (1, dict(
+                    cruise_wing_left_inner_power = 1.,
+                )),
+            ],
+            constant = 0.,          
+        )
+        self.add_subsystem('cruise_total_power_comp', comp, promotes = ['*']) 
+
+        comp = LinearPowerCombinationComp(
+            shape = shape,
+            out_name = 'hover_total_power',
+            terms_list=[
+                (1, dict(
+                    hover_tail_right_power = 1.,
+                )),
+                (1, dict(
+                    hover_tail_left_power = 1.,
+                )),
+                (1, dict(
+                    hover_wing_right_outer_power = 1.,
+                )),
+                (1, dict(
+                    hover_wing_right_inner_power = 1.,
+                )),
+                (1, dict(
+                    hover_wing_left_outer_power = 1.,
+                )),
+                (1, dict(
+                    hover_wing_left_inner_power = 1.,
+                )),
+            ],
+            constant = 0.,          
+        )
+        self.add_subsystem('hover_total_power_comp', comp, promotes = ['*'])
 
         comp = PowerCombinationComp(
             shape = shape,
@@ -103,10 +157,31 @@ class EnergyGroup(Group):
             coeff = 1.,
             powers_dict=dict(
                 cruise_time = 1.,
-                total_power = 1.,
+                cruise_total_power = 1.,
             )
         )
         self.add_subsystem('cruise_energy_expenditure_comp', comp, promotes = ['*'])
+
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'hover_energy_expenditure',
+            powers_dict=dict(
+                hover_time = 1.,
+                hover_total_power = 1.,
+            )
+        )
+        self.add_subsystem('hover_energy_expenditure_comp', comp, promotes = ['*'])
+
+        comp =  LinearCombinationComp(
+            shape = shape,
+            out_name = 'energy_expenditure_per_trip',
+            constant = 0.,
+            coeffs_dict=dict(
+                hover_energy_expenditure = 1.,
+                cruise_energy_expenditure = 1.,                    
+            )
+        )
+        self.add_subsystem('energy_expenditure_per_trip_comp',comp, promotes = ['*'])
 
         comp = LinearCombinationComp(
             shape = shape,
@@ -115,33 +190,43 @@ class EnergyGroup(Group):
             coeffs_dict=dict(
                 total_avail_energy =1.,
                 cruise_energy_expenditure = -1.,
+                hover_energy_expenditure = -1.,
             )
         )
         self.add_subsystem('energy_remaining_comp', comp, promotes=['*'])
 
         comp = PowerCombinationComp(
             shape = shape,
-            out_name = 'design_range_energy_expenditure',
-            coeff = 1.,
+            out_name = 'tips_per_charge',
             powers_dict=dict(
-                trip_length = 1.,
-                GrossWeight = 1.,
-                average_prop_efficiency = -1.,
-                lift_drag_ratio = -1.,
+                total_avail_energy = 1.,
+                energy_expenditure_per_trip = -1.,
             )
         )
-        self.add_subsystem('design_range_energy_expenditure_comp', comp, promotes = ['*'])
+        self.add_subsystem('trips_per_charge', comp, promotes=['*'])
+        # comp = PowerCombinationComp(
+        #     shape = shape,
+        #     out_name = 'design_range_energy_expenditure',
+        #     coeff = 1.,
+        #     powers_dict=dict(
+        #         trip_length = 1.,
+        #         GrossWeight = 1.,
+        #         cruise_average_prop_efficiency = -1.,
+        #         lift_drag_ratio = -1.,
+        #     )
+        # )
+        # self.add_subsystem('design_range_energy_expenditure_comp', comp, promotes = ['*'])
 
-        comp = LinearCombinationComp(
-            shape = shape,
-            out_name = 'energy_remaining_1',
-            constant = 0.,
-            coeffs_dict=dict(
-                total_avail_energy =1.,
-                design_range_energy_expenditure = -1.,
-            )
-        )
-        self.add_subsystem('energy_remaining_1_comp', comp, promotes=['*'])
+        # comp = LinearCombinationComp(
+        #     shape = shape,
+        #     out_name = 'energy_remaining_1',
+        #     constant = 0.,
+        #     coeffs_dict=dict(
+        #         total_avail_energy =1.,
+        #         design_range_energy_expenditure = -1.,
+        #     )
+        # )
+        # self.add_subsystem('energy_remaining_1_comp', comp, promotes=['*'])
 
         # comp = PowerCombinationComp(
         #     shape = shape,
