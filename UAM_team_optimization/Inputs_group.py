@@ -2,23 +2,6 @@ from openmdao.api import Group, IndepVarComp, Problem
 import numpy as np
 from UAM_team_optimization.Propulsion_group import PropulsionGroup
 
-# from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_left_outer_prop_thrust_coeff, wing_left_inner_prop_thrust_coeff,tail_left_prop_thrust_coeff
-# from UAM_team_optimization.components.Propulsion.propulsion_comp import wing_right_outer_prop_thrust_coeff, wing_right_inner_prop_thrust_coeff,tail_right_prop_thrust_coeff
-# from test_run import stuff
-# my_shape = (1,)
-# inputs_prob = Problem()
-
-# propulsion_group = PropulsionGroup(
-#     shape = my_shape
-# )
-# inputs_prob.model.add_subsystem('propulsion_group', propulsion_group,promotes = ['*'])
-# inputs_prob.setup(check=True)
-# inputs_prob['motor_group.mass'] = 120.
-# inputs_prob['motor_group.angular_speed'] = 120.
-# inputs_prob['motor_group.normalized_torque'] = 0.6
-# inputs_prob['preprocess_group.speed'] = 67. * 0.25
-
-
 class InputsGroup(Group):
 
     def initialize(self):
@@ -35,17 +18,26 @@ class InputsGroup(Group):
 
 # Atmospheric inital values:
         comp.add_output('v_inf' , val= 67)
+        
         comp.add_output('q' , val= 250)
 
 # Wing inital values:
         comp.add_output('wing_alpha', val = 0.015)
+        
         comp.add_output('wing_CLa', val = 2*np.pi)
+        
         comp.add_output('wing_CL0', val = 0.2)
+        
         comp.add_output('wing_CD0', val = 0.015)
+        
         comp.add_output('wing_e', val = 0.85)
+        
         comp.add_output('wing_AR', val = 12 )
+        
         comp.add_output('wing_area', val = 25 )
+
         comp.add_output('wing_tc', val = 0.12 )
+        
         comp.add_output('nose_wing_c4', val = 2.1336)
 
 # Tail inital values:
@@ -79,12 +71,6 @@ class InputsGroup(Group):
         comp.add_output('wing_prop_inner_rad',val = 0.8)
         comp.add_output('wing_prop_outer_rad',val = 0.8)
         comp.add_output('tail_prop_rad',val = 0.8)
-        # comp.add_output('wing_left_inner_thrust_coeff', val = 0)#wing_left_inner_prop_thrust_coeff)
-        # comp.add_output('wing_left_outer_thrust_coeff', val = 0)#inputs_prob['rotor_group.thrust_coeff']/7.75)
-        # comp.add_output('tail_left_thrust_coeff', val =0)# tail_left_prop_thrust_coeff)
-        # comp.add_output('wing_right_inner_thrust_coeff', val = 0)#wing_right_inner_prop_thrust_coeff)
-        # comp.add_output('wing_right_outer_thrust_coeff', val =0)# wing_right_outer_prop_thrust_coeff)
-        # comp.add_output('tail_right_thrust_coeff', val = 0)#tail_right_prop_group.rotor_group.thrust_coeff )
 
 # Weights initial values:
         comp.add_output('w_design', val=26700.)
@@ -100,7 +86,8 @@ class InputsGroup(Group):
 
 # Battery/Energy Initial Values:
         comp.add_output('battery_mass', val = 500.)
-        comp.add_output('batter_energy_density', val = 200.)
+
+        comp.add_output('batter_energy_density', val = 300.)
         comp.add_output('range', val = 140.)
 
 # Economics initial values:
@@ -119,13 +106,23 @@ class InputsGroup(Group):
         comp.add_output('flthr_yr' , val= 2000)
         comp.add_output('years' , val= 5)
         comp.add_output('t_tol' , val= 1/36)
-        comp.add_output('distance' , val= 100000)
+        comp.add_output('distance' , val= 20000)
         comp.add_output('savings' , val= .6985)
         comp.add_output('v_drive' , val= 31.2)
 
         # comp.add_output('trip_length', 20000.)
         # comp.add_output('hover_time', 100.)
         
+
+# ----- ----- ----- ----- SETTING BOUNDS FOR DESIGN VARIABLES ----- ----- ----- ----- #
+        comp.add_design_var('v_inf', lower = 60, upper = 70)
+        # comp.add_design_var('wing_alpha', lower = 0,upper = 0.15)
+        # comp.add_design_var('wing_AR', lower=8., upper = 15.)
+        # comp.add_design_var('wing_area', lower=20., upper = 30.)
+        comp.add_design_var('battery_mass', lower = 450, upper = 600)
+        # SETTING THE REST LATER ONE AT A TIME
+
+
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
 

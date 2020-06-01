@@ -1,6 +1,6 @@
 from openmdao.api import Group, IndepVarComp
 
-# from lsdo_utils.api import PowerCombinationComp, LinearCombinationComp
+# ---- ---- ---- ---- IMPORTING COMPONENTS ---- ---- ---- ---- #
 from UAM_team_optimization.components.Economics.ac_comp import AcComp
 from UAM_team_optimization.components.Economics.avionicscost_comp import AvionicsCostComp
 from UAM_team_optimization.components.Economics.batterycost_comp import BatteryCostComp
@@ -26,7 +26,7 @@ class EconGroup(Group):
     def setup(self):
         shape = self.options['shape']
         
-        # 
+        # ---- ---- ---- ---- ADDING COMPONENT TO GROUP ---- ---- ---- ---- #
         comp = AvionicsCostComp()
         self.add_subsystem('avionicscost_comp', comp, promotes = ['*'])
         
@@ -41,8 +41,6 @@ class EconGroup(Group):
         
         comp = FltCostComp(fta=6)
         self.add_subsystem('fltcost_comp', comp, promotes = ['*'])
-        
-        
         
         comp = MfgCostComp()
         self.add_subsystem('mfgcost_comp', comp, promotes = ['*'])
@@ -71,5 +69,8 @@ class EconGroup(Group):
         comp = FareComp()
         self.add_subsystem('fare_comp', comp, promotes = ['*'])
         
+
+        #----- ----- ----- ----- OBJECTIVE FUNCTION ----- ----- ----- ----- #
         comp = ProfitComp()
+        comp.add_objective('Profit', scaler = -1.)
         self.add_subsystem('profit_comp', comp, promotes = ['*'])

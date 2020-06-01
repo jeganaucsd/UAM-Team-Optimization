@@ -16,7 +16,7 @@ class ToolHrComp(ExplicitComponent):
         
     def compute(self, inputs, outputs):
         
-        EmptyWeight = inputs['EmptyWeight']
+        EmptyWeight = inputs['EmptyWeight']/9.81
         v_inf = inputs['v_inf']*3.6
         quantity = inputs['quantity']
 
@@ -24,7 +24,7 @@ class ToolHrComp(ExplicitComponent):
 
     def compute_partials(self, inputs, partials):
        
-        EmptyWeight = inputs['EmptyWeight']
+        EmptyWeight = inputs['EmptyWeight']/9.81
         v_inf = inputs['v_inf']*3.6
         quantity = inputs['quantity']
 

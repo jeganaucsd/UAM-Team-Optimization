@@ -1,13 +1,16 @@
-# HEY MARIUS LOOK IT WORKED. I THINK.
+# MAE 155B UAM TEAM OPTIMIZATION PROBLEM 
+# OBJECTIVE FUNCITON: PROFIT --> OBJECTIVE SET IN Econ_group.py
 
 import numpy as np
 
 from openmdao.api import Problem, IndepVarComp, Group
-from openmdao.api import ExplicitComponent
+from openmdao.api import ExplicitComponent, ScipyOptimizeDriver
 from lsdo_aircraft.api import SimpleRotor, SimpleMotor, Powertrain, PowertrainGroup
 
 import numpy as np
 from openmdao.utils.options_dictionary import OptionsDictionary
+
+# ---- ---- ---- ---- IMPORTING GROUPS ---- ---- ---- ---- #
 from UAM_team_optimization.Aero_group import AeroGroup
 from UAM_team_optimization.Aero import Aero
 from UAM_team_optimization.Geometry_group import GeometryGroup
@@ -23,41 +26,50 @@ my_shape = (1,)
 
 prob = Problem()
 
+# ---- ---- ---- ---- ADDING GROUPS TO PROBLEM ---- ---- ---- ---- #
+# INPUTS GROUP
 inputs_group = InputsGroup(
     shape = my_shape
 )
 prob.model.add_subsystem('inputs_group', inputs_group,promotes=['*'])
 
+# GEOMETRY GROUP 
 geometry_group = GeometryGroup(
     shape = my_shape
 )
 prob.model.add_subsystem('geometry_group',  geometry_group,promotes=['*'])
 
+# PROPULSION GROUP
 propulsion_group = PropulsionGroup(
     shape = my_shape
 )
 prob.model.add_subsystem('propulsion_group', propulsion_group,promotes = ['*'])
 
+# AERO GROUP
 aero_group = AeroGroup(
     shape=my_shape,
 )
 prob.model.add_subsystem('aero_group',aero_group,promotes=['*'])
 
+# WEIGHTS GROUP
 weights_group = WeightsGroup(
     shape=my_shape,
 )
 prob.model.add_subsystem('weights_group',weights_group,promotes=['*'])
 
+# MOTION EQUATIONS GROUP
 motion_equations_group = MotionEquationsGroup(
     shape=my_shape,
 )
 prob.model.add_subsystem('motion_equations_group',motion_equations_group,promotes=['*'])
 
+# ENERGY GROUP
 energy_group = EnergyGroup(
     shape=my_shape,
 )
 prob.model.add_subsystem('energy_group',energy_group,promotes=['*'])
 
+# ECON GROUP
 economics_group = EconGroup(
     shape=my_shape,
 )
@@ -119,6 +131,14 @@ prob.model.connect('hover_wing_right_inner_prop_group.motor_group.input_power', 
 prob.model.connect('hover_wing_right_outer_prop_group.motor_group.input_power', 'hover_wing_right_outer_power')
 
 # prob.model.connect('wing_left_inner_thrust_coeff','tail_right_prop_group.rotor_group.thrust')#    'model.aero_group.axial_int_comp.wing_left_outer_axial_int_fac')
+
+# ---- ---- ---- ---- SETTING UP DRIVER AND DEFIING OPTIONS ---- ---- ---- ---- #
+prob.driver = ScipyOptimizeDriver()
+prob.driver.options['optimizer'] = 'SLSQP'#'COBYLA'
+prob.driver.options['tol'] = 1e-13
+prob.driver.options['disp'] = True
+
+
 
 prob.setup(check=True)
 # ---- ---- ---- ---- CRUISE SETUP ---- ---- ---- ---- #
@@ -183,7 +203,10 @@ prob['hover_tail_right_prop_group.motor_group.angular_speed'] = 140.
 prob['hover_tail_right_prop_group.motor_group.normalized_torque'] = 0.5
 prob['hover_tail_right_prop_group.preprocess_group.speed'] = 0.2*67
 
+
+# ---- ---- ---- ---- RUNNING PROBLEM AND DRIVER ---- ---- ---- ---- #
 prob.run_model()
+prob.run_driver()
 # prob.check_partials(compact_print=True)
 
 prob.model.list_outputs(prom_name=True)

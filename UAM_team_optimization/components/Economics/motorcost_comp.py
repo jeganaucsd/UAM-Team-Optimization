@@ -11,6 +11,7 @@ class MotorCostComp(ExplicitComponent):
         self.add_output('MotorCost')
 
         self.declare_partials('MotorCost', 'quantity')
+        self.declare_partials('MotorCost', 'num_motor')
 
 
         

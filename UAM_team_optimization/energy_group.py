@@ -173,6 +173,27 @@ class EnergyGroup(Group):
         )
         self.add_subsystem('cruise_energy_expenditure_comp', comp, promotes = ['*'])
 
+        comp = LinearCombinationComp(
+            shape = shape,
+            out_name = 'total_flight_time',
+            constant = 0.,
+            coeffs_dict=dict(
+                cruise_time = 1.,
+                t_tol = 1.,
+            )
+        )
+        self.add_subsystem('total_flight_time_comp', comp, promotes = ['*'])
+
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'trips_per_flight_hour',
+            coeff = 3600.,
+            powers_dict=dict(
+                total_flight_time = -1.,
+            )
+        )
+        self.add_subsystem('trips_per_flight_hour', comp, promotes= ['*'])
+
         comp = PowerCombinationComp(
             shape = shape,
             out_name = 'hover_energy_expenditure_kWh',
@@ -221,7 +242,7 @@ class EnergyGroup(Group):
         comp = PowerCombinationComp(
             shape = shape,
             out_name = 'aircraft_range',
-            coeff = 1/1000,
+            coeff = 1,
             powers_dict = dict(
                 distance = 1.,
                 trips_per_charge = 1.,

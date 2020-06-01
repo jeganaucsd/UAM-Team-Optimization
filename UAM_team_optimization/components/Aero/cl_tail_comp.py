@@ -32,11 +32,11 @@ class CLTailComp(ExplicitComponent):
         tail_alpha = inputs['tail_alpha']
         tail_CLa = inputs['tail_CLa']
         tail_CL0 = inputs['tail_CL0']
-        axial_int_fac = inputs['axial_int_fac']
+        average_tail_axial_int_fac = inputs['average_tail_axial_int_fac']
         tail_blown_percent = inputs['tail_blown_percent']
 
         partials['tail_CL', 'tail_alpha'] = tail_CLa + tail_CLa*tail_blown_percent*((1+average_tail_axial_int_fac)**2 - 1)
         partials['tail_CL', 'tail_CLa'] = tail_alpha + tail_alpha*tail_blown_percent*((1+average_tail_axial_int_fac)**2 - 1)
-        partials['tail_CL', 'tail_CL0'] = 1 + tail_blown_percent*((1+axial_int_fac)**2 - 1)
-        partials['tail_CL','axial_int_fac'] = 2*(tail_CLa * tail_alpha + tail_CL0)*tail_blown_percent*(1+average_tail_axial_int_fac)
+        partials['tail_CL', 'tail_CL0'] = 1 + tail_blown_percent*((1+average_tail_axial_int_fac)**2 - 1)
+        partials['tail_CL','average_tail_axial_int_fac'] = 2*(tail_CLa * tail_alpha + tail_CL0)*tail_blown_percent*(1+average_tail_axial_int_fac)
         partials['tail_CL', 'tail_blown_percent'] = (tail_CLa * tail_alpha + tail_CL0)*((1+average_tail_axial_int_fac)**2 - 1)

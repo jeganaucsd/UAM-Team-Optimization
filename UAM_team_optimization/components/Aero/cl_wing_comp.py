@@ -32,13 +32,13 @@ class CLWingComp(ExplicitComponent):
         wing_alpha = inputs['wing_alpha']
         wing_CLa = inputs['wing_CLa']
         wing_CL0 = inputs['wing_CL0']
-        axial_int_fac = inputs['axial_int_fac']
+        average_wing_axial_int_fac = inputs['average_wing_axial_int_fac']
         wing_blown_percent = inputs['wing_blown_percent']
 
         partials['wing_CL', 'wing_alpha'] = wing_CLa + wing_CLa*wing_blown_percent*((1+average_wing_axial_int_fac)**2 - 1)
         partials['wing_CL', 'wing_CLa'] = wing_alpha + wing_alpha*wing_blown_percent*((1+average_wing_axial_int_fac)**2 - 1)
-        partials['wing_CL', 'wing_CL0'] = 1 + wing_blown_percent*((1+axial_int_fac)**2 - 1)
-        partials['wing_CL', 'axial_int_fac'] = 2*(wing_CLa * wing_alpha + wing_CL0)*wing_blown_percent*(1+average_wing_axial_int_fac)
+        partials['wing_CL', 'wing_CL0'] = 1 + wing_blown_percent*((1+average_wing_axial_int_fac)**2 - 1)
+        partials['wing_CL', 'average_wing_axial_int_fac'] = 2*(wing_CLa * wing_alpha + wing_CL0)*wing_blown_percent*(1+average_wing_axial_int_fac)
         partials['wing_CL', 'wing_blown_percent'] = (wing_CLa * wing_alpha + wing_CL0)*((1+average_wing_axial_int_fac)**2 - 1)
 
  

@@ -11,6 +11,8 @@ class BatteryCostComp(ExplicitComponent):
         self.add_output('BatteryCost')
 
         self.declare_partials('BatteryCost', 'quantity')
+        self.declare_partials('BatteryCost', 'total_avail_energy_kWh')
+        self.declare_partials('BatteryCost', 'kwhcost')
 
 
         
