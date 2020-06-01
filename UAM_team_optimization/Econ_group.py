@@ -24,8 +24,8 @@ class EconGroup(Group):
 
     def setup(self):
         shape = self.options['shape']
-        
-        # 
+
+        #
         comp = AcComp()
         self.add_subsystem('ac_comp', comp, promotes = ['*'])
         comp = AvionicsCostComp()
