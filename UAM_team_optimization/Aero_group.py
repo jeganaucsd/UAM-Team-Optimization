@@ -395,9 +395,20 @@ class AeroGroup(Group):
                 total_CD=1.,
                 density = 1.,
                 v_inf=2.,
-                total_area=1.,
+                wing_area=1.,
             )
         )
         self.add_subsystem('total_drag_comp', comp, promotes=['*'])
+
+        comp = PowerCombinationComp(
+            shape = shape,
+            out_name = 'lift_drag_ratio',
+            coeff = 1.,
+            powers_dict=dict(
+                total_lift = 1.,
+                total_drag = -1.,
+            )
+        )
+        self.add_subsystem('lift_drag_ratio', comp, promotes = ['*'])
 
         
