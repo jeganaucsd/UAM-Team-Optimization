@@ -16,7 +16,7 @@ class EngHrComp(ExplicitComponent):
     def compute(self, inputs, outputs):
         
         EmptyWeight = inputs['EmptyWeight']
-        v_inf = inputs['v_inf']
+        v_inf = inputs['v_inf']*3.6
         quantity = inputs['quantity']
 
         outputs['EngHr'] = 5.18 * EmptyWeight**.777 * v_inf**.894 * quantity**.163 
@@ -24,7 +24,7 @@ class EngHrComp(ExplicitComponent):
     def compute_partials(self, inputs, partials):
        
         EmptyWeight = inputs['EmptyWeight']
-        v_inf = inputs['v_inf']
+        v_inf = inputs['v_inf']*3.6
         q = inputs['q']
 
         partials['EngHr', 'EmptyWeight'] = 4.02486 * EmptyWeight**-.223 * v_inf**.894 * quantity**.163
