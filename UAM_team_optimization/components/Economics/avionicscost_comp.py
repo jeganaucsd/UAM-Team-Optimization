@@ -6,21 +6,21 @@ class AvionicsCostComp(ExplicitComponent):
 
     def setup(self):
 
-        self.add_input('q')
+        self.add_input('quantity')
         self.add_output('AvionicsCost')
 
-        self.declare_partials('AvionicsCost', 'q')
+        self.declare_partials('AvionicsCost', 'quantity')
 
 
         
     def compute(self, inputs, outputs):
         
-        q = inputs['q']
+        quantity = inputs['quantity']
 
-        outputs['AvionicsCost'] = 60000 * q
+        outputs['AvionicsCost'] = 120000 * quantity
 
     def compute_partials(self, inputs, partials):
        
-        q = inputs['q']
+        quantity = inputs['quantity']
 
-        partials['AvionicsCost', 'q'] = 60000 
+        partials['AvionicsCost', 'quantity'] = 120000

@@ -34,37 +34,39 @@ class InputsGroup(Group):
 # Adding Input variables which are the outputs of input_comp
 
 # Atmospheric inital values:
-        comp.add_output('v_inf' , val= 60)
+        comp.add_output('v_inf' , val= 67)
         comp.add_output('q' , val= 250)
 
 # Wing inital values:
-        comp.add_output('wing_alpha', val = 0.05)
+        comp.add_output('wing_alpha', val = 0.015)
         comp.add_output('wing_CLa', val = 2*np.pi)
         comp.add_output('wing_CL0', val = 0.2)
         comp.add_output('wing_CD0', val = 0.015)
         comp.add_output('wing_e', val = 0.85)
-        comp.add_output('wing_AR', val = 8 )
+        comp.add_output('wing_AR', val = 12 )
         comp.add_output('wing_area', val = 25 )
         comp.add_output('wing_tc', val = 0.12 )
+        comp.add_output('nose_wing_c4', val = 2.1336)
 
 # Tail inital values:
-        comp.add_output('tail_alpha', val = 0)
+        comp.add_output('tail_alpha', val = 0.04)
         comp.add_output('tail_CLa', val = 2*np.pi)
         comp.add_output('tail_CL0', val = 0.2)
         comp.add_output('tail_CD0', val = 0.015)
         comp.add_output('tail_e', val = 0.85)
-        comp.add_output('tail_AR', val = 8 )
+        comp.add_output('tail_AR', val = 12 )
         comp.add_output('tail_area', val = 4 )
         comp.add_output('tail_tc', val = 0.12)
+        comp.add_output('nose_tail_c4', val = 6.5292)
 
         comp.add_output('total_area', val = 29)
 
 # Fuselage initial values:
         comp.add_output('fuselage_max_crossec_area', val = 7.22)
         comp.add_output('fuselage_length', val = 6.4)
-        comp.add_output('fuselage_f', val = 0.886426)
-        comp.add_output('fuselage_form_factor', val = 87)
-        comp.add_output('fuselage_wetter_area', val = 52.05)
+        comp.add_output('fuselage_f', val = 2.11)
+        comp.add_output('fuselage_form_factor', val = 7.3847)
+        comp.add_output('fuselage_wetted_area', val = 52.05)
 
 # Vertical tail initial values:
         comp.add_output('vertical_tail_mac', val = 1.074)
@@ -89,12 +91,17 @@ class InputsGroup(Group):
         comp.add_output('w_pax', val=900.)
         comp.add_output('w_else', val=18000.) # all empty weight EXCEPT tail, wing, PAX
         comp.add_output('load_factor', val=3.8)
-        comp.add_output('x_wingc4', val=1.)
-        comp.add_output('x_tailc4', val=2.)
+        comp.add_output('x_wingc4', val=2.1336)
+        comp.add_output('x_tailc4', val=6.5292)
         comp.add_output('x_else', val=3.)
-        comp.add_output('x_pax', val=4.)
+        comp.add_output('x_pax', val=1.088136)
         comp.add_output('MAC', val=1.)
         comp.add_output('w_tail')
+
+# Battery/Energy Initial Values:
+        comp.add_output('battery_mass', val = 500.)
+        comp.add_output('batter_energy_density', val = 200.)
+        comp.add_output('range', val = 140.)
 
 # Economics initial values:
         comp.add_output('EngRt' , val= 40)
@@ -103,7 +110,23 @@ class InputsGroup(Group):
         comp.add_output('QcRt' , val= 37)
         comp.add_output('kwh' , val= 133)
         comp.add_output('kwhcost' , val= 137)
-        comp.add_output('num_motor' , val= 12)
+
+        comp.add_output('num_motor' , val= 6)
+        comp.add_output('quantity' , val= 250)
+        comp.add_output('Price_km' , val= 2)
+        comp.add_output('cost_km' , val= 1.25)
+        comp.add_output('EnergyCost' , val= .12)
+        comp.add_output('flthr_yr' , val= 2000)
+        comp.add_output('years' , val= 5)
+        comp.add_output('t_tol' , val= .1)
+        comp.add_output('distance' , val= 100)
+        comp.add_output('savings' , val= .6985)
+        comp.add_output('v_drive' , val= 31.2)
+
+
+        comp.add_output('trip_length', 20000.)
+        comp.add_output('hover_time', 100.)
+        
         self.add_subsystem('inputs_comp', comp, promotes=['*'])
 
 

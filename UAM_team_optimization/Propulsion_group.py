@@ -67,8 +67,7 @@ class PropulsionGroup(Group):
     def setup(self):
         shape = self.options['shape']
 
-        #
-
+        # ---- ---- ---- ---- CRUISE PROP GROUPS ---- ---- ---- ---- #
         wing_left_outer_prop_group = PowertrainGroup(
             shape=shape,
             powertrain=powertrain,
@@ -105,20 +104,78 @@ class PropulsionGroup(Group):
         )
         self.add_subsystem('tail_right_prop_group', tail_right_prop_group)
 
+
+        # ---- ---- ---- ---- HOVER PROP GROUPS ---- ---- ---- ---- #
+        hover_wing_left_outer_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_wing_left_outer_prop_group', hover_wing_left_outer_prop_group)
+
+        hover_wing_left_inner_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_wing_left_inner_prop_group', hover_wing_left_inner_prop_group)
+
+        hover_tail_left_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_tail_left_prop_group', hover_tail_left_prop_group)
+
+        hover_wing_right_outer_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_wing_right_outer_prop_group', hover_wing_right_outer_prop_group)
+
+        hover_wing_right_inner_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_wing_right_inner_prop_group', hover_wing_right_inner_prop_group)
+
+        hover_tail_right_prop_group = PowertrainGroup(
+            shape=shape,
+            powertrain=powertrain,
+        )
+        self.add_subsystem('hover_tail_right_prop_group', hover_tail_right_prop_group)
+
+
+        # ---- ---- ---- ---- CRUISE THRUST ---- ---- ---- ---- #
         comp = LinearCombinationComp(
             shape = shape,
-            out_name = 'total_thrust',
+            out_name = 'cruise_total_thrust',
             constant = 0.,
             coeffs_dict=dict(
-                tail_right_thrust =1.,
-                tail_left_thrust =1.,
-                wing_left_inner_thrust = 1.,
-                wing_left_outer_thrust = 1.,
-                wing_right_inner_thrust = 1.,
-                wing_right_outer_thrust = 1.,
+                cruise_tail_right_thrust =1.,
+                cruise_tail_left_thrust =1.,
+                cruise_wing_left_inner_thrust = 1.,
+                cruise_wing_left_outer_thrust = 1.,
+                cruise_wing_right_inner_thrust = 1.,
+                cruise_wing_right_outer_thrust = 1.,
             )
         )
-        self.add_subsystem('total_thrust_comp',comp,promotes=['*'])
+        self.add_subsystem('cruise_total_thrust_comp',comp,promotes=['*'])
+
+        # ---- ---- ---- ---- HOVER THRUST ---- ---- ---- ---- #
+        comp = LinearCombinationComp(
+            shape = shape,
+            out_name = 'hover_total_thrust',
+            constant = 0.,
+            coeffs_dict=dict(
+                hover_tail_right_thrust =1.,
+                hover_tail_left_thrust =1.,
+                hover_wing_left_inner_thrust = 1.,
+                hover_wing_left_outer_thrust = 1.,
+                hover_wing_right_inner_thrust = 1.,
+                hover_wing_right_outer_thrust = 1.,
+            )
+        )
+        self.add_subsystem('hover_total_thrust_comp',comp,promotes=['*'])
+
+
 
         # comp = TestCLWingComp()
         # comp = GeometryComp()
